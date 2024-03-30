@@ -98,23 +98,24 @@ class BinOpNode(ExprNode):
 
 
 class UnarOp(Enum):
-    # INC = '++'
-    # DEC = '--'
+    INC = '++'
+    DEC = '--'
     NOT = '!'
 
 
 class UnarOpNode(ExprNode):
-    def __init__(self, op: UnarOp, arg: ExprNode, row: Optional[int] = None, line: Optional[int] = None, **props):
+    def __init__(self, op: UnarOp, arg: ExprNode, string: Optional[str], row: Optional[int] = None, line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.op = op
         self.arg = arg
+        self.string = string
 
     @property
     def childs(self) -> Tuple[ExprNode]:
         return (self.arg,)
 
     def __str__(self) -> str:
-        return str(self.op.value)
+        return str(self.op.value) + self.string
 
 
 class StmtNode(ExprNode):

@@ -56,6 +56,17 @@ parser = Lark('''
 
     ?add: mult
         | add ( ADD | SUB ) mult  -> bin_op
+    
+    inc_pre: INC ident  -> unar_op
+    dec_pre: DEC ident  -> unar_op
+    inc_post: ident INC -> unar_op
+    dec_post: ident DEC -> unar_op
+    
+    ?inc: inc_pre
+        | inc_post 
+
+    ?dec: dec_pre
+        | dec_post
 
     ?compare1: add
         | add ( GT | LT | GE | LE ) add  -> bin_op
@@ -73,6 +84,8 @@ parser = Lark('''
 
     ?expr: logical_or
         | logical_not
+        | inc
+        | dec
 
     ?var_decl_inner: ident
         | ident "=" expr  -> assign
@@ -81,6 +94,8 @@ parser = Lark('''
     vars_decl: ident var_decl_inner ( "," var_decl_inner )*
 
     ?simple_stmt: ident "=" expr -> assign
+        | inc
+        | dec
         | call
 
     ?for_stmt_list: vars_decl
@@ -142,9 +157,30 @@ class MelASTBuilder(Transformer):
 
         if item in ('unar_op',):
             def get_unar_op_node(*args):
-                op = UnarOp(args[0].value)
-                return UnarOpNode(op, args[1],
-                                  **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
+                if isinstance(args[0], Token):
+                    op = UnarOp(args[0].value)
+                    if op.value != '!':
+                        string = '(pref)'
+                    else:
+                        string = ''
+                    expr = args[1]
+                else:
+                    op = UnarOp(args[1].value)
+                    string = '(post)'
+                    expr = args[0]
+                return UnarOpNode(op, expr, string)
+                # if op.value == '!':
+                #     return UnarOpNode(op, expr)
+                # if op.value == '++':
+                #     return UnarOpNode(op, expr)
+                # elif op.value == '--':
+                #     return UnarOpNode(op, expr)
+                # handle other unary operators...
+
+            # def get_unar_op_node(*args):
+            #     op = UnarOp(args[0].value)
+            #     return UnarOpNode(op, args[1],
+            #                       **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
 
             return get_unar_op_node
 

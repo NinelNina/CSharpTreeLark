@@ -6,6 +6,8 @@ def main():
     prog = '''
     //int main(int a) {
         int g, g2 = g, g = 90;
+        i++;
+        --i;
         bool op1 = true;
         bool a = !op1;
         if (!op1){
@@ -21,7 +23,7 @@ def main():
         while(a < b) {
             a = c + b;
         }
-        for (int i = 0, j = 8; ((i <= 5)) && g; i = i + 1, print(5))
+        for (int i = 0, j = 8; ((i <= 5)) && g; i++, print(5))
             for(; a < b;)
                 if (a > 7 + b) {
                     c = a + b * (2 - 1) + 0;  // comment 2
