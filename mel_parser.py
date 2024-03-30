@@ -28,6 +28,8 @@ parser = Lark('''
     SUB:     "-"
     MUL:     "*"
     DIV:     "/"
+    ADD_EQ:  "+="
+    SUB_EQ:  "+="
     INC:     "++"
     DEC:     "--"
     NOT:     "!"
@@ -47,7 +49,9 @@ parser = Lark('''
     call: ident "(" ( expr ( "," expr )* )? ")"
 
     ?group: num | str
-        | ident
+        | inc
+        | dec
+        | ident 
         | call
         | "(" expr ")"
 
@@ -84,8 +88,6 @@ parser = Lark('''
 
     ?expr: logical_or
         | logical_not
-        | inc
-        | dec
 
     ?var_decl_inner: ident
         | ident "=" expr  -> assign
@@ -123,11 +125,11 @@ parser = Lark('''
 
     stmt_list: ( stmt ";"* )*
     
-    func_decl: ident "(" params ")" "{" stmt_list "}" -> func
-    
-    ?params: vars_decl
+    func_decl_param: ident ident -> vars_decl
+    ?func_decl_params: (func_decl_param ("," func_decl_param)*)?
+    func_decl: ident ident "(" func_decl_params ")" "{" stmt_list "}"
 
-    ?prog: stmt_list
+    ?prog: func_decl* -> stmt_list
 
     ?start: prog
 ''', start='start')  # , parser='lalr')
@@ -169,19 +171,6 @@ class MelASTBuilder(Transformer):
                     string = '(post)'
                     expr = args[0]
                 return UnarOpNode(op, expr, string)
-                # if op.value == '!':
-                #     return UnarOpNode(op, expr)
-                # if op.value == '++':
-                #     return UnarOpNode(op, expr)
-                # elif op.value == '--':
-                #     return UnarOpNode(op, expr)
-                # handle other unary operators...
-
-            # def get_unar_op_node(*args):
-            #     op = UnarOp(args[0].value)
-            #     return UnarOpNode(op, args[1],
-            #                       **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
-
             return get_unar_op_node
 
         if item in ('ternary',):
@@ -190,15 +179,6 @@ class MelASTBuilder(Transformer):
                                    **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
 
             return get_ternary_node
-
-        if item in ('func',):
-            def get_func_node(*args):
-                print(args)
-                name = args[0]
-                params = [param for param in args[2] if isinstance(param, VarsDeclNode)]
-                func_body = args[4]
-                return FuncNode(name, params, func_body)
-            return get_func_node
 
         if item in ('stmt_list', ):
             def get_node(*args):

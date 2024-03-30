@@ -4,7 +4,7 @@ import mel_parser
 
 def main():
     prog = '''
-    //int main(int a) {
+    int main(int a) {
         int g, g2 = g, g = 90;
         i++;
         --i;
@@ -30,12 +30,22 @@ def main():
                     b = "98\tура";
                 }
                 else if (f)
-                    output(c + 1, 89.89);
+                    output(--c + 1, 89.89);
         for(;;);
-    //}
+    }
+    
+    string inputStr(string str){
+        int a = 5;
+        int b;
+        b = a;
+    }
     '''
     prog2 = '''
-        int g, g2 = g, g = 90;
+    string inputStr(string str){
+        int a = 5;
+        int b;
+        b = a;
+    }
     '''
     prog = mel_parser.parse(prog)
     print(*prog.tree, sep=os.linesep)
