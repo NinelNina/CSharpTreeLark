@@ -47,7 +47,7 @@ def main():
         b += a;
     }
     '''
-    prog = mel_parser.parse(prog2)
+    prog = mel_parser.parse(prog)
     print(*prog.tree, sep=os.linesep)
 
 
