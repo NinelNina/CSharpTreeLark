@@ -67,8 +67,6 @@ class BinOp(Enum):
     SUB = '-'
     MUL = '*'
     DIV = '/'
-    ADD_EQ = '+='
-    SUB_EQ = '-='
     QMARK = '?'
     COLON = ':'
     GE = '>='
@@ -83,8 +81,31 @@ class BinOp(Enum):
     LOGICAL_OR = '||'
 
 
+class CombEqOp(Enum):
+    ADD_EQ = '+='
+    SUB_EQ = '-='
+    MULT_EQ = '*='
+    DIV_EQ = '/='
+
+
 class BinOpNode(ExprNode):
     def __init__(self, op: BinOp, arg1: ExprNode, arg2: ExprNode,
+                 row: Optional[int] = None, line: Optional[int] = None, **props):
+        super().__init__(row=row, line=line, **props)
+        self.op = op
+        self.arg1 = arg1
+        self.arg2 = arg2
+
+    @property
+    def childs(self) -> Tuple[ExprNode, ExprNode]:
+        return self.arg1, self.arg2
+
+    def __str__(self) -> str:
+        return str(self.op.value)
+
+
+class CombEqNode(ExprNode):
+    def __init__(self, op: CombEqOp, arg1: ExprNode, arg2: ExprNode,
                  row: Optional[int] = None, line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.op = op
@@ -106,7 +127,8 @@ class UnarOp(Enum):
 
 
 class UnarOpNode(ExprNode):
-    def __init__(self, op: UnarOp, arg: ExprNode, string: Optional[str], row: Optional[int] = None, line: Optional[int] = None, **props):
+    def __init__(self, op: UnarOp, arg: ExprNode, string: Optional[str], row: Optional[int] = None,
+                 line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.op = op
         self.arg = arg

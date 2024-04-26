@@ -44,10 +44,10 @@ def main():
     string inputStr(string str){
         int a = 5;
         int b;
-        b = a;
+        b += a;
     }
     '''
-    prog = mel_parser.parse(prog)
+    prog = mel_parser.parse(prog2)
     print(*prog.tree, sep=os.linesep)
 
 

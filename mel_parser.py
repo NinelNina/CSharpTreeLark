@@ -29,7 +29,9 @@ parser = Lark('''
     MUL:     "*"
     DIV:     "/"
     ADD_EQ:  "+="
-    SUB_EQ:  "+="
+    SUB_EQ:  "-="
+    MULT_EQ: "*="
+    DIV_EQ:  "/="
     INC:     "++"
     DEC:     "--"
     NOT:     "!"
@@ -60,6 +62,8 @@ parser = Lark('''
 
     ?add: mult
         | add ( ADD | SUB ) mult  -> bin_op
+        
+    ?add_eq: mult | add ( ADD_EQ | SUB_EQ | MULT_EQ | DIV_EQ ) mult  -> comb_eq
     
     inc_pre: INC ident  -> unar_op
     dec_pre: DEC ident  -> unar_op
@@ -96,6 +100,7 @@ parser = Lark('''
     vars_decl: ident var_decl_inner ( "," var_decl_inner )*
 
     ?simple_stmt: ident "=" expr -> assign
+        | add_eq
         | inc
         | dec
         | call
@@ -156,6 +161,13 @@ class MelASTBuilder(Transformer):
                 return BinOpNode(op, args[0], args[2],
                                  **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
             return get_bin_op_node
+
+        if item in ('comb_eq', ):
+            def get_comb_op_node(*args):
+                op = CombEqOp(args[1].value)
+                return CombEqNode(op, args[0], args[2],
+                                 **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
+            return get_comb_op_node
 
         if item in ('unar_op',):
             def get_unar_op_node(*args):
