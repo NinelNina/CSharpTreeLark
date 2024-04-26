@@ -67,6 +67,8 @@ class BinOp(Enum):
     SUB = '-'
     MUL = '*'
     DIV = '/'
+    ADD_EQ = '+='
+    SUB_EQ = '-='
     QMARK = '?'
     COLON = ':'
     GE = '>='
@@ -98,23 +100,24 @@ class BinOpNode(ExprNode):
 
 
 class UnarOp(Enum):
-    # INC = '++'
-    # DEC = '--'
+    INC = '++'
+    DEC = '--'
     NOT = '!'
 
 
 class UnarOpNode(ExprNode):
-    def __init__(self, op: UnarOp, arg: ExprNode, row: Optional[int] = None, line: Optional[int] = None, **props):
+    def __init__(self, op: UnarOp, arg: ExprNode, string: Optional[str], row: Optional[int] = None, line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.op = op
         self.arg = arg
+        self.string = string
 
     @property
     def childs(self) -> Tuple[ExprNode]:
         return (self.arg,)
 
     def __str__(self) -> str:
-        return str(self.op.value)
+        return str(self.op.value) + self.string
 
 
 class StmtNode(ExprNode):
@@ -264,20 +267,39 @@ class StmtListNode(StmtNode):
         return '...'
 
 
-class FuncNode(StmtNode):
-    def __init__(self, declaration: IdentNode, params: Optional[VarsDeclNode], body: StmtListNode,
+class FuncDeclInnerNode(StmtNode):
+    def __init__(self, vars_type: StmtNode, *vars_list: Tuple[AstNode, ...],
                  row: Optional[int] = None, line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
-        self.declaration = declaration
-        self.params = params
-        self.body = body
+        self.vars_type = vars_type
+        self.vars_list = vars_list
 
     @property
-    def childs(self) -> Tuple[IdentNode, VarsDeclNode, StmtNode]:
-        return self.declaration, self.params, self.body
+    def childs(self) -> Tuple[ExprNode, ...]:
+        # return self.vars_type, (*self.vars_list)
+        return (self.vars_type,) + self.vars_list
 
     def __str__(self) -> str:
-        return f'func {self.declaration}'
+        return 'type'
+
+
+class FuncDeclNode(StmtNode):
+    def __init__(self, type: IdentNode, name: IdentNode, *params_and_body: Union[VarsDeclNode, StmtListNode],
+                 row: Optional[int] = None, line: Optional[int] = None, **props):
+        super().__init__(row=row, line=line, **props)
+        self.type = type
+        self.name = name
+        self.params = params_and_body[:-1]
+        if len(self.params) > 0 and isinstance(self.params[0], Tuple):
+            self.params = self.params[0]
+        self.body = params_and_body[-1]
+
+    @property
+    def childs(self) -> Tuple[StmtNode]:
+        return *self.params, self.body
+
+    def __str__(self) -> str:
+        return f'{self.type} {self.name}()'
 
 
 _empty = StmtListNode()

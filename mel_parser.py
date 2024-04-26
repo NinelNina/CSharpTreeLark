@@ -28,6 +28,8 @@ parser = Lark('''
     SUB:     "-"
     MUL:     "*"
     DIV:     "/"
+    ADD_EQ:  "+="
+    SUB_EQ:  "+="
     INC:     "++"
     DEC:     "--"
     NOT:     "!"
@@ -47,7 +49,9 @@ parser = Lark('''
     call: ident "(" ( expr ( "," expr )* )? ")"
 
     ?group: num | str
-        | ident
+        | inc
+        | dec
+        | ident 
         | call
         | "(" expr ")"
 
@@ -56,6 +60,17 @@ parser = Lark('''
 
     ?add: mult
         | add ( ADD | SUB ) mult  -> bin_op
+    
+    inc_pre: INC ident  -> unar_op
+    dec_pre: DEC ident  -> unar_op
+    inc_post: ident INC -> unar_op
+    dec_post: ident DEC -> unar_op
+    
+    ?inc: inc_pre
+        | inc_post 
+
+    ?dec: dec_pre
+        | dec_post
 
     ?compare1: add
         | add ( GT | LT | GE | LE ) add  -> bin_op
@@ -81,6 +96,8 @@ parser = Lark('''
     vars_decl: ident var_decl_inner ( "," var_decl_inner )*
 
     ?simple_stmt: ident "=" expr -> assign
+        | inc
+        | dec
         | call
 
     ?for_stmt_list: vars_decl
@@ -108,11 +125,11 @@ parser = Lark('''
 
     stmt_list: ( stmt ";"* )*
     
-    func_decl: ident "(" params ")" "{" stmt_list "}" -> func
-    
-    ?params: vars_decl
+    func_decl_param: ident ident -> vars_decl
+    ?func_decl_params: (func_decl_param ("," func_decl_param)*)?
+    func_decl: ident ident "(" func_decl_params ")" "{" stmt_list "}"
 
-    ?prog: stmt_list
+    ?prog: func_decl* -> stmt_list
 
     ?start: prog
 ''', start='start')  # , parser='lalr')
@@ -142,10 +159,18 @@ class MelASTBuilder(Transformer):
 
         if item in ('unar_op',):
             def get_unar_op_node(*args):
-                op = UnarOp(args[0].value)
-                return UnarOpNode(op, args[1],
-                                  **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
-
+                if isinstance(args[0], Token):
+                    op = UnarOp(args[0].value)
+                    if op.value != '!':
+                        string = '(pref)'
+                    else:
+                        string = ''
+                    expr = args[1]
+                else:
+                    op = UnarOp(args[1].value)
+                    string = '(post)'
+                    expr = args[0]
+                return UnarOpNode(op, expr, string)
             return get_unar_op_node
 
         if item in ('ternary',):
@@ -154,15 +179,6 @@ class MelASTBuilder(Transformer):
                                    **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
 
             return get_ternary_node
-
-        if item in ('func',):
-            def get_func_node(*args):
-                print(args)
-                name = args[0]
-                params = [param for param in args[2] if isinstance(param, VarsDeclNode)]
-                func_body = args[4]
-                return FuncNode(name, params, func_body)
-            return get_func_node
 
         if item in ('stmt_list', ):
             def get_node(*args):
