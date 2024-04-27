@@ -124,6 +124,7 @@ class UnarOp(Enum):
     INC = '++'
     DEC = '--'
     NOT = '!'
+    RETURN = 'return'
 
 
 class UnarOpNode(ExprNode):
@@ -303,6 +304,21 @@ class FuncDeclInnerNode(StmtNode):
 
     def __str__(self) -> str:
         return 'type'
+
+
+class ReturnOpNode(ExprNode):
+    def __init__(self, op: UnarOp, arg: ExprNode, row: Optional[int] = None,
+                 line: Optional[int] = None, **props):
+        super().__init__(row=row, line=line, **props)
+        self.op = op
+        self.arg = arg
+
+    @property
+    def childs(self) -> Tuple[ExprNode]:
+        return (self.arg,)
+
+    def __str__(self) -> str:
+        return str(self.op.value)
 
 
 class FuncDeclNode(StmtNode):

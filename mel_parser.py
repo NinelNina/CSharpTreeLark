@@ -47,6 +47,7 @@ parser = Lark('''
     LT:      "<"
     QMARK:   "?"
     COLON:   ":"
+    RETURN: "return"
 
     call: ident "(" ( expr ( "," expr )* )? ")"
 
@@ -121,6 +122,7 @@ parser = Lark('''
 
     ?stmt: vars_decl ";"
         | simple_stmt ";"
+        | RETURN ( expr )? -> return_op
         | "if" "(" expr ")" stmt ("else" stmt)?  -> if
         | ternary_expr ";"
         | "for" "(" for_stmt_list ";" for_cond ";" for_stmt_list ")" for_body  -> for
@@ -130,9 +132,10 @@ parser = Lark('''
 
     stmt_list: ( stmt ";"* )*
     
+    ?return_call: RETURN ( expr )? -> return_op
     func_decl_param: ident ident -> vars_decl
     ?func_decl_params: (func_decl_param ("," func_decl_param)*)?
-    func_decl: ident ident "(" func_decl_params ")" "{" stmt_list "}"
+    func_decl: ident ident "(" func_decl_params ")" "{" stmt_list ( return_call )?"}"
 
     ?prog: func_decl* -> stmt_list
 
@@ -184,6 +187,13 @@ class MelASTBuilder(Transformer):
                     expr = args[0]
                 return UnarOpNode(op, expr, string)
             return get_unar_op_node
+
+        if item in ('return_op', ):
+            def get_return_op_node(*args):
+                op = UnarOp(args[0].value)
+                return ReturnOpNode(op, args[1],
+                                 **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
+            return get_return_op_node
 
         if item in ('ternary',):
             def get_ternary_node(*args):
