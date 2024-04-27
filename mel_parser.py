@@ -133,7 +133,7 @@ parser = Lark('''
     stmt_list: ( stmt ";"* )*
     
     ?return_call: RETURN ( expr )? -> return_op
-    func_decl_param: ident ident -> vars_decl
+    func_decl_param: ident ident -> func_params
     ?func_decl_params: (func_decl_param ("," func_decl_param)*)?
     func_decl: ident ident "(" func_decl_params ")" "{" stmt_list ( return_call )?"}"
 
@@ -191,7 +191,11 @@ class MelASTBuilder(Transformer):
         if item in ('return_op', ):
             def get_return_op_node(*args):
                 op = UnarOp(args[0].value)
-                return ReturnOpNode(op, args[1],
+                if len(args) > 1:
+                    return ReturnOpNode(op, args[1],
+                                 **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
+                else:
+                    return ReturnOpNode(op,
                                  **{'token': args[0], 'line': args[0].line, 'column': args[0].column})
             return get_return_op_node
 

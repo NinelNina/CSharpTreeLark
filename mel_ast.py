@@ -163,6 +163,22 @@ class VarsDeclNode(StmtNode):
         return 'var'
 
 
+class FuncParamsNode(StmtNode):
+    def __init__(self, vars_type: IdentNode, *vars_list: Tuple[AstNode, ...],
+                 row: Optional[int] = None, line: Optional[int] = None, **props):
+        super().__init__(row=row, line=line, **props)
+        self.vars_type = vars_type
+        self.vars_list = vars_list
+
+    @property
+    def childs(self) -> Tuple[AstNode, ...]:
+        # return self.vars_type, (*self.vars_list)
+        return (*self.vars_list,)
+
+    def __str__(self) -> str:
+        return self.vars_type.__str__()
+
+
 class CallNode(StmtNode):
     def __init__(self, func: IdentNode, *params: Tuple[ExprNode],
                  row: Optional[int] = None, line: Optional[int] = None, **props):
@@ -307,7 +323,7 @@ class FuncDeclInnerNode(StmtNode):
 
 
 class ReturnOpNode(ExprNode):
-    def __init__(self, op: UnarOp, arg: ExprNode, row: Optional[int] = None,
+    def __init__(self, op: UnarOp, arg: Optional[ExprNode] = None, row: Optional[int] = None,
                  line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.op = op

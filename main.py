@@ -41,11 +41,11 @@ def main():
     }
     '''
     prog2 = '''
-    string inputStr(string str){
+    string inputStr(string str, int b){
         int a = 5;
         int b;
         b += a;
-        return a + b;
+        return a;
     }
     '''
     prog = mel_parser.parse(prog2)
