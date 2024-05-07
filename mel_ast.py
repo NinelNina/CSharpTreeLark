@@ -338,7 +338,7 @@ class ReturnOpNode(ExprNode):
 
 
 class FuncDeclNode(StmtNode):
-    def __init__(self, type: IdentNode, name: IdentNode, *params_and_body: Union[VarsDeclNode, StmtListNode],
+    def __init__(self, type: IdentNode, name: IdentNode, *params_and_body: Union[FuncParamsNode, StmtListNode],
                  row: Optional[int] = None, line: Optional[int] = None, **props):
         super().__init__(row=row, line=line, **props)
         self.type = type

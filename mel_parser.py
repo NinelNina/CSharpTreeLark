@@ -167,9 +167,12 @@ class MelASTBuilder(Transformer):
 
         if item in ('comb_eq', ):
             def get_comb_op_node(*args):
-                op = CombEqOp(args[1].value)
-                return CombEqNode(op, args[0], args[2],
-                                 **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
+                op = BinOp(args[1].value[0])
+                return AssignNode(args[0], BinOpNode(op, args[0], args[2]))
+                # op = CombEqOp(args[1].value)
+                # return CombEqNode(op, args[0], args[2],
+                #                  **{'token': args[1], 'line': args[1].line, 'column': args[1].column})
+
             return get_comb_op_node
 
         if item in ('unar_op',):
