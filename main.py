@@ -1,5 +1,6 @@
 import os
 import mel_parser
+import program
 
 
 def main():
@@ -41,15 +42,16 @@ def main():
     }
     '''
     prog2 = '''
-    string inputStr(string str, int b){
-        int a = 5;
-        int b;
-        b += a;
-        return a;
+    int calc(){
+        int b = 0;
+        return b;
     }
     '''
     prog = mel_parser.parse(prog2)
+
     print(*prog.tree, sep=os.linesep)
+
+    program.execute(prog)
 
 
 if __name__ == "__main__":
