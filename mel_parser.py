@@ -96,6 +96,7 @@ parser = Lark('''
 
     ?expr: logical_or
         | logical_not
+        | ternary_expr
 
     ?var_decl_inner: ident
         | ident "=" expr  -> assign

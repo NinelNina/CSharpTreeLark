@@ -53,9 +53,11 @@ def main():
         bool an;
         an = !an;
         
-        while(a < b) {
-            a = c + b;
-        }
+        //while(a < b) {
+        //   a = c + b;
+        //}
+        
+        c = b > a ? 3 : 4;
         
         return b;  
     }  

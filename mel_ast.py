@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from contextlib import suppress
 from typing import Callable, Tuple, Optional, Union, List
 from enum import Enum
-from semantic_base import TypeDesc, ScopeType, SemanticException, BIN_OP_TYPE_COMPATIBILITY, TYPE_CONVERTIBILITY, \
+from semantic_base import TypeDesc, SemanticException, TYPE_CONVERTIBILITY, \
     IdentScope, IdentDesc
 
 
@@ -27,9 +27,6 @@ class AstNode(ABC):
     @abstractmethod
     def __str__(self) -> str:
         pass
-
-    """Чтобы среда не "ругалась" в модуле semantic_checker
-        """
 
     def semantic_error(self, message: str):
         raise SemanticException(message, self.row, self.col)
@@ -85,21 +82,6 @@ class IdentNode(ExprNode):
 
     def __str__(self) -> str:
         return str(self.name)
-
-# class TypeNode(IdentNode):
-#     """Класс для представления в AST-дереве типов данный
-#        (при появлении составных типов данных должен быть расширен)
-#     """
-#
-#     def __init__(self, name: str,
-#                  row: Optional[int] = None, col: Optional[int] = None, **props) -> None:
-#         super().__init__(name, row=row, col=col, **props)
-#         self.type = None
-#         with suppress(semantic_base.SemanticException):
-#             self.type = semantic_base.TypeDesc.from_str(name)
-#
-#     def to_str_full(self):
-#         return self.to_str()
 
 
 class BinOp(Enum):
@@ -421,10 +403,6 @@ class FuncDeclNode(StmtNode):
 
 
 class TypeConvertNode(ExprNode):
-    """Класс для представления в AST-дереве операций конвертации типов данных
-       (в языке программирования может быть как expression, так и statement)
-    """
-
     def __init__(self, expr: ExprNode, type_: TypeDesc,
                  row: Optional[int] = None, col: Optional[int] = None, **props) -> None:
         super().__init__(row=row, col=col, **props)
@@ -441,9 +419,6 @@ class TypeConvertNode(ExprNode):
 
 
 class _GroupNode(AstNode):
-    """Класс для группировки других узлов (вспомогательный, в синтаксисе нет соотвествия)
-    """
-
     def __init__(self, name: str, *childs: AstNode,
                  row: Optional[int] = None, col: Optional[int] = None, **props) -> None:
         super().__init__(row=row, col=col, **props)
@@ -459,14 +434,6 @@ class _GroupNode(AstNode):
 
 
 def type_convert(expr: ExprNode, type_: TypeDesc, except_node: Optional[AstNode] = None, comment: Optional[str] = None) -> ExprNode:
-    """Метод преобразования ExprNode узла AST-дерева к другому типу
-    :param expr: узел AST-дерева
-    :param type_: требуемый тип
-    :param except_node: узел, о которого будет исключение
-    :param comment: комментарий
-    :return: узел AST-дерева c операцией преобразования
-    """
-
     if expr.node_type is None:
         except_node.semantic_error('Тип выражения не определен')
     if expr.node_type == type_:

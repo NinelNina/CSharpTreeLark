@@ -5,7 +5,7 @@ from semantic_base import TypeDesc, ScopeType, SemanticException, BIN_OP_TYPE_CO
     IdentScope, IdentDesc, BinOp, COMB_EQ_OP_TYPE_COMPATIBILITY, CombEqOp, UNAR_OP_TYPE_COMPATIBILITY, UnarOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, ExprNode, CallNode, \
     VarsDeclNode, FuncDeclNode, FuncParamsNode, AssignNode, ReturnOpNode, IfNode, WhileNode, ForNode, StmtListNode, \
-    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT, CombEqNode, UnarOpNode
+    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT, CombEqNode, UnarOpNode, TernaryNode
 
 BUILT_IN_OBJECTS = '''
     string read() { }
@@ -78,10 +78,19 @@ class SemanticChecker:
             node.node_type = ident.type
             node.node_ident = ident
 
-#    @visitor.when(TypeNode)
- #   def semantic_check(self, node: TypeNode, scope: IdentScope):
-  #      if node.type is None:
-   #         node.semantic_error('Неизвестный тип {}'.format(node.name))
+    @visitor.when(TernaryNode)
+    def semantic_check(self, node: TernaryNode, scope: IdentScope):
+        node.cond.semantic_check(self, scope)
+        if node.cond.node_type != TypeDesc.BOOL:
+            node.semantic_error('Условное выражение должно иметь тип bool')
+
+        node.true_expr.semantic_check(self, scope)
+        node.false_expr.semantic_check(self, scope)
+
+        if node.true_expr.node_type != node.false_expr.node_type:
+            node.semantic_error('Типы выражений true и false должны быть одинаковыми')
+
+        node.node_type = node.true_expr.node_type
 
     @visitor.when(BinOpNode)
     def semantic_check(self, node: BinOpNode, scope: IdentScope):

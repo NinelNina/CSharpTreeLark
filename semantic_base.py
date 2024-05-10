@@ -1,13 +1,8 @@
 from typing import Any, Dict, Optional, Tuple
 from enum import Enum
 
-# по идее, должен быть описан в ast, но возникают проблемы с cross импортом модулей, с которыми пока лень разбираться
-
 
 class BinOp(Enum):
-    """Перечисление возможных бинарных операций
-    """
-
     ADD = '+'
     SUB = '-'
     MUL = '*'
@@ -50,9 +45,6 @@ class UnarOp(Enum):
 
 
 class BaseType(Enum):
-    """Перечисление для базовых типов данных
-    """
-
     VOID = 'void'
     INT = 'int'
     FLOAT = 'float'
@@ -67,12 +59,6 @@ VOID, INT, FLOAT, BOOL, STR = BaseType.VOID, BaseType.INT, BaseType.FLOAT, BaseT
 
 
 class TypeDesc:
-    """Класс для описания типа данных.
-
-       Сейчас поддерживаются только примитивные типы данных и функции.
-       Для поддержки сложных типов (массивы и т.п.) должен быть рассширен
-    """
-
     VOID: 'TypeDesc'
     INT: 'TypeDesc'
     FLOAT: 'TypeDesc'
@@ -139,11 +125,8 @@ for base_type in BaseType:
 
 
 class ScopeType(Enum):
-    """Перечисление для "области" декларации переменных
-    """
-
     GLOBAL = 'global'
-    GLOBAL_LOCAL = 'global.local'  # переменные относятся к глобальной области, но описаны в скобках (теряем имена)
+    GLOBAL_LOCAL = 'global.local'
     PARAM = 'param'
     LOCAL = 'local'
 
@@ -152,9 +135,6 @@ class ScopeType(Enum):
 
 
 class IdentDesc:
-    """Класс для описания переменых
-    """
-
     def __init__(self, name: str, type_: TypeDesc, scope: ScopeType = ScopeType.GLOBAL, index: int = 0) -> None:
         self.name = name
         self.type = type_
@@ -167,9 +147,6 @@ class IdentDesc:
 
 
 class IdentScope:
-    """Класс для представлений областей видимости переменных во время семантического анализа
-    """
-
     def __init__(self, parent: Optional['IdentScope'] = None) -> None:
         self.idents: Dict[str, IdentDesc] = {}
         self.func: Optional[IdentDesc] = None
@@ -241,9 +218,6 @@ class IdentScope:
 
 
 class SemanticException(Exception):
-    """Класс для исключений во время семантического анализа
-    """
-
     def __init__(self, message, row: int = None, col: int = None, **kwargs: Any) -> None:
         if row or col:
             message += " ("
