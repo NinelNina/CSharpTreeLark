@@ -1,5 +1,4 @@
 from collections.abc import Iterable
-from contextlib import suppress
 
 from lark import Lark, Transformer
 from lark.lexer import Token
@@ -20,8 +19,12 @@ parser = Lark('''
         |  "//" /(.)+/ NEWLINE
     %ignore COMMENT
 
-    num: NUMBER  -> literal
-    str: ESCAPED_STRING  -> literal
+    TRUE:    "true"
+    FALSE:    "false"
+
+    num: NUMBER -> literal
+    str: ESCAPED_STRING -> literal
+    bool_lit: ( TRUE | FALSE ) -> literal
     ident: CNAME
 
     ADD:     "+"
@@ -104,6 +107,7 @@ parser = Lark('''
         | add_eq
         | inc
         | dec
+        | logical_not
         | call
 
     ?for_stmt_list: vars_decl

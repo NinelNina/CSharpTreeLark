@@ -1,6 +1,11 @@
 import os
+import sys
+import traceback
+
 import mel_parser
 import program
+import semantic_base
+import semantic_checker
 
 
 def main():
@@ -42,16 +47,43 @@ def main():
     }
     '''
     prog2 = '''
-    int calc(){
+    string main(int a, int c){
         int b = 0;
-        return b;
-    }
+        b = b + a;
+        bool an;
+        an = !an;
+        
+        while(a < b) {
+            a = c + b;
+        }
+        
+        return b;  
+    }  
     '''
-    prog = mel_parser.parse(prog2)
+    #prog = mel_parser.parse(prog2)
+    #print(*prog.tree, sep=os.linesep)
+    #program.execute(prog2)
 
+    try:
+        prog = mel_parser.parse(prog2)
+    except Exception as e:
+        print('Ошибка: {}'.format(e.__str__()), file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        exit(1)
+
+    print('ast:')
     print(*prog.tree, sep=os.linesep)
-
-    program.execute(prog)
+    print()
+    print('semantic-check:')
+    try:
+        checker = semantic_checker.SemanticChecker()
+        scope = semantic_checker.prepare_global_scope()
+        checker.semantic_check(prog, scope)
+        print(*prog.tree, sep=os.linesep)
+        print()
+    except semantic_base.SemanticException as e:
+        print('Ошибка: {}'.format(e.message), file=sys.stderr)
+        exit(2)
 
 
 if __name__ == "__main__":

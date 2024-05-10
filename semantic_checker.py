@@ -1,12 +1,11 @@
 from typing import List, Optional
 
-#TODO: проверить импорты
 import visitor
 from semantic_base import TypeDesc, ScopeType, SemanticException, BIN_OP_TYPE_COMPATIBILITY, TYPE_CONVERTIBILITY, \
-    IdentScope, IdentDesc
+    IdentScope, IdentDesc, BinOp, COMB_EQ_OP_TYPE_COMPATIBILITY, CombEqOp, UNAR_OP_TYPE_COMPATIBILITY, UnarOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, ExprNode, CallNode, \
     VarsDeclNode, FuncDeclNode, FuncParamsNode, AssignNode, ReturnOpNode, IfNode, WhileNode, ForNode, StmtListNode, \
-    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT
+    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT, CombEqNode, UnarOpNode
 
 BUILT_IN_OBJECTS = '''
     string read() { }
@@ -71,9 +70,13 @@ class SemanticChecker:
     def semantic_check(self, node: IdentNode, scope: IdentScope):
         ident = scope.get_ident(node.name)
         if ident is None:
-            node.semantic_error('Идентификатор {} не найден'.format(node.name))
-        node.node_type = ident.type
-        node.node_ident = ident
+            try:
+                node.node_type = TypeDesc.from_str(node.name)
+            except SemanticException:
+                node.semantic_error('Идентификатор {} не найден и не является верным типом данных'.format(node.name))
+        else:
+            node.node_type = ident.type
+            node.node_ident = ident
 
 #    @visitor.when(TypeNode)
  #   def semantic_check(self, node: TypeNode, scope: IdentScope):
@@ -86,7 +89,7 @@ class SemanticChecker:
         node.arg2.semantic_check(self, scope)
 
         if node.arg1.node_type.is_simple or node.arg2.node_type.is_simple:
-            compatibility = BIN_OP_TYPE_COMPATIBILITY[node.op]
+            compatibility = BIN_OP_TYPE_COMPATIBILITY[BinOp.__getitem__(node.op.name)]
             args_types = (node.arg1.node_type.base_type, node.arg2.node_type.base_type)
             if args_types in compatibility:
                 node.node_type = TypeDesc.from_base_type(compatibility[args_types])
@@ -109,6 +112,52 @@ class SemanticChecker:
 
         node.semantic_error("Оператор {} не применим к типам ({}, {})".format(
             node.op, node.arg1.node_type, node.arg2.node_type
+        ))
+
+    @visitor.when(CombEqNode)
+    def semantic_check(self, node: CombEqNode, scope: IdentScope):
+        node.arg1.semantic_check(self, scope)
+        node.arg2.semantic_check(self, scope)
+
+        if node.arg1.node_type.is_simple or node.arg2.node_type.is_simple:
+            compatibility = COMB_EQ_OP_TYPE_COMPATIBILITY[CombEqOp.__getitem__(node.op.name)]
+            args_types = (node.arg1.node_type.base_type, node.arg2.node_type.base_type)
+            if args_types in compatibility:
+                node.node_type = TypeDesc.from_base_type(compatibility[args_types])
+                return
+
+            if node.arg2.node_type.base_type in TYPE_CONVERTIBILITY:
+                for arg2_type in TYPE_CONVERTIBILITY[node.arg2.node_type.base_type]:
+                    args_types = (node.arg1.node_type.base_type, arg2_type)
+                    if args_types in compatibility:
+                        node.arg2 = type_convert(node.arg2, TypeDesc.from_base_type(arg2_type))
+                        node.node_type = TypeDesc.from_base_type(compatibility[args_types])
+                        return
+            if node.arg1.node_type.base_type in TYPE_CONVERTIBILITY:
+                for arg1_type in TYPE_CONVERTIBILITY[node.arg1.node_type.base_type]:
+                    args_types = (arg1_type, node.arg2.node_type.base_type)
+                    if args_types in compatibility:
+                        node.arg1 = type_convert(node.arg1, TypeDesc.from_base_type(arg1_type))
+                        node.node_type = TypeDesc.from_base_type(compatibility[args_types])
+                        return
+
+        node.semantic_error("Оператор {} не применим к типам ({}, {})".format(
+            node.op, node.arg1.node_type, node.arg2.node_type
+        ))
+
+    @visitor.when(UnarOpNode)
+    def semantic_check(self, node: UnarOpNode, scope: IdentScope):
+        node.arg.semantic_check(self, scope)
+
+        if node.arg.node_type.is_simple:
+            compatibility = UNAR_OP_TYPE_COMPATIBILITY[UnarOp.__getitem__(node.op.name)]
+            args_type = node.arg.node_type.base_type
+            if args_type in compatibility:
+                node.node_type = TypeDesc.from_base_type(compatibility[args_type])
+                return
+
+        node.semantic_error("Оператор {} не применим к типу {}".format(
+            node.op, node.arg.node_type
         ))
 
     @visitor.when(CallNode)
@@ -170,11 +219,11 @@ class SemanticChecker:
 
     @visitor.when(ReturnOpNode)
     def semantic_check(self, node: ReturnOpNode, scope: IdentScope):
-        node.val.semantic_check(self, IdentScope(scope))
+        node.arg.semantic_check(self, IdentScope(scope))
         func = scope.curr_func
         if func is None:
             node.semantic_error('Оператор return применим только к функции')
-        node.val = type_convert(node.val, func.func.type.return_type, node, 'возвращаемое значение')
+        node.arg = type_convert(node.arg, func.func.type.return_type, node, 'возвращаемое значение')
         node.node_type = TypeDesc.VOID
 
     @visitor.when(IfNode)

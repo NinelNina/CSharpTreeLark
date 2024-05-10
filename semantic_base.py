@@ -1,27 +1,49 @@
 from typing import Any, Dict, Optional, Tuple
 from enum import Enum
 
-
 # по идее, должен быть описан в ast, но возникают проблемы с cross импортом модулей, с которыми пока лень разбираться
+
+
 class BinOp(Enum):
-    """Перечисление возможных биранных операций
+    """Перечисление возможных бинарных операций
     """
 
     ADD = '+'
     SUB = '-'
     MUL = '*'
     DIV = '/'
-    MOD = '%'
-    GT = '>'
-    LT = '<'
+    QMARK = '?'
+    COLON = ':'
     GE = '>='
     LE = '<='
-    EQUALS = '=='
     NEQUALS = '!='
+    EQUALS = '=='
+    GT = '>'
+    LT = '<'
     BIT_AND = '&'
     BIT_OR = '|'
     LOGICAL_AND = '&&'
     LOGICAL_OR = '||'
+
+    def __str__(self):
+        return self.value
+
+
+class CombEqOp(Enum):
+    ADD_EQ = '+='
+    SUB_EQ = '-='
+    MULT_EQ = '*='
+    DIV_EQ = '/='
+
+    def __str__(self):
+        return self.value
+
+
+class UnarOp(Enum):
+    INC = '++'
+    DEC = '--'
+    NOT = '!'
+    RETURN = 'return'
 
     def __str__(self):
         return self.value
@@ -266,11 +288,6 @@ BIN_OP_TYPE_COMPATIBILITY = {
         (INT, INT): INT,
         (FLOAT, FLOAT): FLOAT
     },
-    BinOp.MOD: {
-        (INT, INT): INT,
-        (FLOAT, FLOAT): FLOAT
-    },
-
     BinOp.GT: {
         (INT, INT): BOOL,
         (FLOAT, FLOAT): BOOL,
@@ -303,18 +320,56 @@ BIN_OP_TYPE_COMPATIBILITY = {
         (STR, STR): BOOL,
         (BOOL, BOOL): BOOL,
     },
-
     BinOp.BIT_AND: {
         (INT, INT): INT,
     },
     BinOp.BIT_OR: {
         (INT, INT): INT,
     },
-
     BinOp.LOGICAL_AND: {
         (BOOL, BOOL): BOOL,
     },
     BinOp.LOGICAL_OR: {
         (BOOL, BOOL): BOOL,
     },
+}
+
+COMB_EQ_OP_TYPE_COMPATIBILITY = {
+    CombEqOp.ADD_EQ: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT,
+        (STR, STR): STR
+    },
+    CombEqOp.SUB_EQ: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT
+    },
+    CombEqOp.MULT_EQ: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT
+    },
+    CombEqOp.DIV_EQ: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT
+    }
+}
+
+UNAR_OP_TYPE_COMPATIBILITY = {
+    UnarOp.INC: {
+        INT: INT,
+        FLOAT: FLOAT,
+    },
+    UnarOp.DEC: {
+        INT: INT,
+        FLOAT: FLOAT
+    },
+    UnarOp.NOT: {
+        BOOL: BOOL,
+    },
+    UnarOp.RETURN: {
+        INT: INT,
+        FLOAT: FLOAT,
+        BOOL: BOOL,
+        STR: STR
+    }
 }

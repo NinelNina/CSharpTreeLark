@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
+from contextlib import suppress
 from typing import Callable, Tuple, Optional, Union, List
 from enum import Enum
-import semantic_base
+from semantic_base import TypeDesc, ScopeType, SemanticException, BIN_OP_TYPE_COMPATIBILITY, TYPE_CONVERTIBILITY, \
+    IdentScope, IdentDesc
 
 
 class AstNode(ABC):
@@ -15,8 +17,8 @@ class AstNode(ABC):
             setattr(self, k, v)
         if AstNode.init_action is not None:
             AstNode.init_action(self)
-        self.node_type: Optional[semantic_base.TypeDesc] = None
-        self.node_ident: Optional[semantic_base.IdentDesc] = None
+        self.node_type: Optional[TypeDesc] = None
+        self.node_ident: Optional[IdentDesc] = None
 
     @property
     def childs(self) -> Tuple['AstNode', ...]:
@@ -30,9 +32,9 @@ class AstNode(ABC):
         """
 
     def semantic_error(self, message: str):
-        raise semantic_base.SemanticException(message, self.row, self.col)
+        raise SemanticException(message, self.row, self.col)
 
-    def semantic_check(self, checker, scope: semantic_base.IdentScope) -> None:
+    def semantic_check(self, checker, scope: IdentScope) -> None:
         checker.semantic_check(self, scope)
 
     @property
@@ -63,9 +65,13 @@ class LiteralNode(ExprNode):
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
         self.literal = literal
+        if literal in ('true', 'false'):
+            self.value = bool(literal)
+        else:
+            self.value = eval(literal)
 
     def __str__(self) -> str:
-        return '{0}'.format(self.literal)
+        return self.literal
 
 
 class IdentNode(ExprNode):
@@ -73,9 +79,27 @@ class IdentNode(ExprNode):
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
         self.name = str(name)
+        self.type = None
+        with suppress(SemanticException):
+           self.type = TypeDesc.from_str(self.name)
 
     def __str__(self) -> str:
         return str(self.name)
+
+# class TypeNode(IdentNode):
+#     """Класс для представления в AST-дереве типов данный
+#        (при появлении составных типов данных должен быть расширен)
+#     """
+#
+#     def __init__(self, name: str,
+#                  row: Optional[int] = None, col: Optional[int] = None, **props) -> None:
+#         super().__init__(name, row=row, col=col, **props)
+#         self.type = None
+#         with suppress(semantic_base.SemanticException):
+#             self.type = semantic_base.TypeDesc.from_str(name)
+#
+#     def to_str_full(self):
+#         return self.to_str()
 
 
 class BinOp(Enum):
@@ -96,12 +120,18 @@ class BinOp(Enum):
     LOGICAL_AND = '&&'
     LOGICAL_OR = '||'
 
+    def __str__(self):
+        return self.value
+
 
 class CombEqOp(Enum):
     ADD_EQ = '+='
     SUB_EQ = '-='
     MULT_EQ = '*='
     DIV_EQ = '/='
+
+    def __str__(self):
+        return self.value
 
 
 class BinOpNode(ExprNode):
@@ -142,6 +172,9 @@ class UnarOp(Enum):
     NOT = '!'
     RETURN = 'return'
 
+    def __str__(self):
+        return self.value
+
 
 class UnarOpNode(ExprNode):
     def __init__(self, op: UnarOp, arg: ExprNode, string: Optional[str], row: Optional[int] = None,
@@ -164,35 +197,49 @@ class StmtNode(ExprNode):
 
 
 class VarsDeclNode(StmtNode):
-    def __init__(self, vars_type: StmtNode, *vars_list: Tuple[AstNode, ...],
+    def __init__(self, type_: StmtNode, *vars: Tuple[AstNode, ...],
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
-        self.vars_type = vars_type
-        self.vars_list = vars_list
+        self.type = type_
+        self.vars = vars
 
     @property
     def childs(self) -> Tuple[ExprNode, ...]:
         # return self.vars_type, (*self.vars_list)
-        return (self.vars_type,) + self.vars_list
+        return (self.type,) + self.vars
 
     def __str__(self) -> str:
         return 'var'
 
 
+# class FuncParamsNode(StmtNode):
+#     def __init__(self, type_: IdentNode, *vars_list: Tuple[AstNode, ...],
+#                  row: Optional[int] = None, col: Optional[int] = None, **props):
+#         super().__init__(row=row, col=col, **props)
+#         self.type = type_
+#         self.vars_list = vars_list
+#
+#     @property
+#     def childs(self) -> Tuple[AstNode, ...]:
+#         # return self.vars_type, (*self.vars_list)
+#         return (*self.vars_list,)
+#
+#     def __str__(self) -> str:
+#         return self.type.__str__()
+
 class FuncParamsNode(StmtNode):
-    def __init__(self, vars_type: IdentNode, *vars_list: Tuple[AstNode, ...],
+    def __init__(self, type_: IdentNode, name: AstNode,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
-        self.vars_type = vars_type
-        self.vars_list = vars_list
+        self.type = type_
+        self.name = name
 
     @property
     def childs(self) -> Tuple[AstNode, ...]:
-        # return self.vars_type, (*self.vars_list)
-        return (*self.vars_list,)
+        return (self.name,)
 
     def __str__(self) -> str:
-        return self.vars_type.__str__()
+        return self.type.__str__()
 
 
 class CallNode(StmtNode):
@@ -378,7 +425,7 @@ class TypeConvertNode(ExprNode):
        (в языке программирования может быть как expression, так и statement)
     """
 
-    def __init__(self, expr: ExprNode, type_: semantic_base.TypeDesc,
+    def __init__(self, expr: ExprNode, type_: TypeDesc,
                  row: Optional[int] = None, col: Optional[int] = None, **props) -> None:
         super().__init__(row=row, col=col, **props)
         self.expr = expr
@@ -411,7 +458,7 @@ class _GroupNode(AstNode):
         return self._childs
 
 
-def type_convert(expr: ExprNode, type_: semantic_base.TypeDesc, except_node: Optional[AstNode] = None, comment: Optional[str] = None) -> ExprNode:
+def type_convert(expr: ExprNode, type_: TypeDesc, except_node: Optional[AstNode] = None, comment: Optional[str] = None) -> ExprNode:
     """Метод преобразования ExprNode узла AST-дерева к другому типу
     :param expr: узел AST-дерева
     :param type_: требуемый тип
@@ -425,7 +472,7 @@ def type_convert(expr: ExprNode, type_: semantic_base.TypeDesc, except_node: Opt
     if expr.node_type == type_:
         return expr
     if expr.node_type.is_simple and type_.is_simple and \
-            expr.node_type.base_type in semantic_base.TYPE_CONVERTIBILITY and type_.base_type in semantic_base.TYPE_CONVERTIBILITY[expr.node_type.base_type]:
+            expr.node_type.base_type in TYPE_CONVERTIBILITY and type_.base_type in TYPE_CONVERTIBILITY[expr.node_type.base_type]:
         return TypeConvertNode(expr, type_)
     else:
         (except_node if except_node else expr).semantic_error('Тип {0}{2} не конвертируется в {1}'.format(
@@ -434,4 +481,4 @@ def type_convert(expr: ExprNode, type_: semantic_base.TypeDesc, except_node: Opt
 
 
 EMPTY_STMT = StmtListNode()
-EMPTY_IDENT = semantic_base.IdentDesc('', semantic_base.TypeDesc.VOID)
+EMPTY_IDENT = IdentDesc('', TypeDesc.VOID)
