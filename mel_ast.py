@@ -28,6 +28,17 @@ class AstNode(ABC):
     def __str__(self) -> str:
         pass
 
+    def to_str(self):
+        return str(self)
+
+    def to_str_full(self):
+        r = ''
+        if self.node_ident:
+            r = str(self.node_ident)
+        elif self.node_type:
+            r = str(self.node_type)
+        return self.to_str() + (' : ' + r if r else '')
+
     def semantic_error(self, message: str):
         raise SemanticException(message, self.row, self.col)
 
@@ -36,14 +47,17 @@ class AstNode(ABC):
 
     @property
     def tree(self) -> [str, ...]:
-        res = [str(self)]
-        childs_temp = self.childs
-        for i, child in enumerate(childs_temp):
+        r = [self.to_str_full()]
+        childs = self.childs
+        for i, child in enumerate(childs):
             ch0, ch = '├', '│'
-            if i == len(childs_temp) - 1:
+            if i == len(childs) - 1:
                 ch0, ch = '└', ' '
-            res.extend(((ch0 if j == 0 else ch) + ' ' + s for j, s in enumerate(child.tree)))
-        return res
+            r.extend(((ch0 if j == 0 else ch) + ' ' + s for j, s in enumerate(child.tree)))
+        return tuple(r)
+
+    def __getitem__(self, index):
+        return self.childs[index] if index < len(self.childs) else None
 
     def visit(self, func: Callable[['AstNode'], None]) -> None:
         func(self)
@@ -193,22 +207,6 @@ class VarsDeclNode(StmtNode):
     def __str__(self) -> str:
         return 'var'
 
-
-# class FuncParamsNode(StmtNode):
-#     def __init__(self, type_: IdentNode, *vars_list: Tuple[AstNode, ...],
-#                  row: Optional[int] = None, col: Optional[int] = None, **props):
-#         super().__init__(row=row, col=col, **props)
-#         self.type = type_
-#         self.vars_list = vars_list
-#
-#     @property
-#     def childs(self) -> Tuple[AstNode, ...]:
-#         # return self.vars_type, (*self.vars_list)
-#         return (*self.vars_list,)
-#
-#     def __str__(self) -> str:
-#         return self.type.__str__()
-
 class FuncParamsNode(StmtNode):
     def __init__(self, type_: IdentNode, name: AstNode,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
@@ -285,6 +283,57 @@ class TernaryNode(StmtNode):
 
     def __str__(self) -> str:
         return '?:'
+
+
+class BlockNode(StmtNode):
+    def __init__(self, stmts: Union[StmtNode, None] = None,
+                 row: Optional[int] = None, col: Optional[int] = None, **props):
+        super().__init__(row=row, col=col, **props)
+        self.stmts = stmts
+
+    @property
+    def childs(self) -> Tuple[AstNode, ...]:
+        return (self.stmts,)
+
+    def __str__(self) -> str:
+        return '{...}'
+
+
+class CatchClauseNode(StmtNode):
+    def __init__(self, exception_type: IdentNode, exception_var: IdentNode, block: BlockNode,
+                 row: Optional[int] = None, col: Optional[int] = None, **props):
+        super().__init__(row=row, col=col, **props)
+        self.exception_type = exception_type
+        self.exception_var = exception_var
+        self.block = block
+
+    @property
+    def childs(self) -> Tuple[IdentNode, IdentNode, BlockNode]:
+        return (self.exception_type, self.exception_var, self.block)
+
+    def __str__(self) -> str:
+        return f'catch({self.exception_type} {self.exception_var})'
+
+
+class TryNode(StmtNode):
+    def __init__(self, try_block: BlockNode, catch_clauses: List[CatchClauseNode] = None, finally_block: Optional[BlockNode] = None,
+                 row: Optional[int] = None, col: Optional[int] = None, **props):
+        super().__init__(row=row, col=col, **props)
+        self.try_block = try_block
+        self.catch_clauses = catch_clauses if catch_clauses else []
+        self.finally_block = finally_block
+
+    @property
+    def childs(self) -> Tuple[BlockNode, ...]:
+        return (self.try_block,) + tuple(self.catch_clauses) + ((self.finally_block,) if self.finally_block else tuple())
+
+    def __str__(self) -> str:
+        result = 'try {...}'
+        if self.catch_clauses:
+            result += ' ' + ' '.join(str(clause) for clause in self.catch_clauses)
+        if self.finally_block:
+            result += ' finally {...}'
+        return result
 
 
 class ForNode(StmtNode):

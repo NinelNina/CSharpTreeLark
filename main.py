@@ -3,7 +3,6 @@ import sys
 import traceback
 
 import mel_parser
-import program
 import semantic_base
 import semantic_checker
 
@@ -48,14 +47,30 @@ def main():
     '''
     prog2 = '''
     string main(int a, int c){
-        int b = 0;
-        b = b + a;
-        bool an;
+        int b = 1;
+        b /= a;
+        bool an = true;
         an = !an;
         
-        //while(a < b) {
-        //   a = c + b;
-        //}
+        while(a < b) {
+           a = c + b;
+        }
+        
+        try {
+            print(a);
+        }
+        catch (Exception ex) {
+            a++;
+        }
+        
+        for (int i = 0, j = 8; ((i <= 5)); i++, print(5))
+            for(; a < b;)
+                if (a > 7 + b) {
+                    c = a + b * (2 - 1) + 0;  // comment 2
+                    string str = "98\tура";
+                }
+                else if (a < c)
+                    print(--c + 1);
         
         c = b > a ? 3 : 4;
         

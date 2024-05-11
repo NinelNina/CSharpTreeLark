@@ -50,12 +50,13 @@ class BaseType(Enum):
     FLOAT = 'float'
     BOOL = 'bool'
     STR = 'string'
+    EXCEPTION = 'Exception'
 
     def __str__(self):
         return self.value
 
 
-VOID, INT, FLOAT, BOOL, STR = BaseType.VOID, BaseType.INT, BaseType.FLOAT, BaseType.BOOL, BaseType.STR
+VOID, INT, FLOAT, BOOL, STR, EXCEPTION = BaseType.VOID, BaseType.INT, BaseType.FLOAT, BaseType.BOOL, BaseType.STR, BaseType.EXCEPTION
 
 
 class TypeDesc:
@@ -64,6 +65,7 @@ class TypeDesc:
     FLOAT: 'TypeDesc'
     BOOL: 'TypeDesc'
     STR: 'TypeDesc'
+    EXCEPTION: 'TypeDesc'
 
     def __init__(self, base_type_: Optional[BaseType] = None,
                  return_type: Optional['TypeDesc'] = None, params: Optional[Tuple['TypeDesc']] = None) -> None:
