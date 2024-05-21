@@ -207,6 +207,7 @@ class VarsDeclNode(StmtNode):
     def __str__(self) -> str:
         return 'var'
 
+
 class FuncParamsNode(StmtNode):
     def __init__(self, type_: IdentNode, name: AstNode,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
@@ -285,22 +286,8 @@ class TernaryNode(StmtNode):
         return '?:'
 
 
-class BlockNode(StmtNode):
-    def __init__(self, stmts: Union[StmtNode, None] = None,
-                 row: Optional[int] = None, col: Optional[int] = None, **props):
-        super().__init__(row=row, col=col, **props)
-        self.stmts = stmts
-
-    @property
-    def childs(self) -> Tuple[AstNode, ...]:
-        return (self.stmts,)
-
-    def __str__(self) -> str:
-        return '{...}'
-
-
-class CatchClauseNode(StmtNode):
-    def __init__(self, exception_type: IdentNode, exception_var: IdentNode, block: BlockNode,
+class CatchBlockNode(StmtNode):
+    def __init__(self, exception_type: IdentNode, exception_var: IdentNode, block: Union[StmtNode, None] = None,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
         self.exception_type = exception_type
@@ -308,31 +295,59 @@ class CatchClauseNode(StmtNode):
         self.block = block
 
     @property
-    def childs(self) -> Tuple[IdentNode, IdentNode, BlockNode]:
+    def childs(self) -> Tuple[AstNode, ...]:
         return (self.exception_type, self.exception_var, self.block)
 
     def __str__(self) -> str:
-        return f'catch({self.exception_type} {self.exception_var})'
+        return 'catch'
+
+
+class FinallyBlockNode(StmtNode):
+    def __init__(self, block: Union[StmtNode, None] = None,
+                 row: Optional[int] = None, col: Optional[int] = None, **props):
+        super().__init__(row=row, col=col, **props)
+        self.block = block
+
+    @property
+    def childs(self) -> Tuple[AstNode, ...]:
+        return (self.block,)
+
+    def __str__(self) -> str:
+        return 'finally'
+
+
+class TryBlockNode(StmtNode):
+    def __init__(self, block: Union[StmtNode, None] = None,
+                 row: Optional[int] = None, col: Optional[int] = None, **props):
+        super().__init__(row=row, col=col, **props)
+        self.block = block
+
+    @property
+    def childs(self) -> Tuple[AstNode, ...]:
+        return (self.block,)
+
+    def __str__(self) -> str:
+        return 'try'
 
 
 class TryNode(StmtNode):
-    def __init__(self, try_block: BlockNode, catch_clauses: List[CatchClauseNode] = None, finally_block: Optional[BlockNode] = None,
-                 row: Optional[int] = None, col: Optional[int] = None, **props):
+    def __init__(self, try_block: Union[StmtNode, None] = None, catch_clauses: CatchBlockNode = None,
+                 finally_block: Union[StmtNode, None] = None, row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
         self.try_block = try_block
-        self.catch_clauses = catch_clauses if catch_clauses else []
-        self.finally_block = finally_block
+        self.catch_clauses = catch_clauses if catch_clauses else EMPTY_STMT
+        self.finally_block = finally_block if finally_block else EMPTY_STMT
 
     @property
-    def childs(self) -> Tuple[BlockNode, ...]:
-        return (self.try_block,) + tuple(self.catch_clauses) + ((self.finally_block,) if self.finally_block else tuple())
+    def childs(self) -> Tuple[AstNode, ...]:
+        return self.try_block, self.catch_clauses, self.finally_block
 
     def __str__(self) -> str:
-        result = 'try {...}'
+        result = 'try'
         if self.catch_clauses:
-            result += ' ' + ' '.join(str(clause) for clause in self.catch_clauses)
+            result += '-catch'
         if self.finally_block:
-            result += ' finally {...}'
+            result += '-finally'
         return result
 
 

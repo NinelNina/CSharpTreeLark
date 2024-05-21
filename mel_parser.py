@@ -126,19 +126,19 @@ parser = Lark('''
 
     ?ternary_expr: vars_decl
         | expr QMARK group COLON group -> ternary
-
-    try_stmt: "try" block catch_clause
-         | "try" block "finally" block
-         | "try" block catch_clause "finally" block
     
-    catch_clause: "catch" ["(" ident ident ")"] block
-
-    block: "{" stmt_list "}"
+    ?body: stmt
+        | ";"  -> stmt_list
+        
+    ?try_stmt: try_block ( catch_block ( catch_block )* )? ( finally_block )?
+    ?try_block: "try" "{" stmt_list "}" -> try_block
+    ?catch_block: "catch" "(" ident ident ")" "{" stmt_list "}" -> catch_block
+    ?finally_block: "finally" "{" stmt_list "}" -> finally_block
 
     ?stmt: vars_decl ";"
         | simple_stmt ";"
         | RETURN ( expr )? -> return_op
-        | try_stmt -> try
+        | try_block ( catch_block )? ( finally_block )? -> try
         | "if" "(" expr ")" stmt ("else" stmt)?  -> if
         | ternary_expr ";"
         | "for" "(" for_stmt_list ";" for_cond ";" for_stmt_list ")" for_body  -> for
@@ -169,31 +169,6 @@ class MelASTBuilder(Transformer):
             return self.__default__(tree.data, children, tree.meta)
         else:
             return f(*children)
-
-    def block(self, *args):
-        return BlockNode(args[0])
-
-    def catch_clause(self, *args):
-        if len(args) == 3:
-            # args[0] будет tuple (ident, ident), args[1] будет block
-            exception_type, exception_var = args[0], args[1]
-            return CatchClauseNode(exception_type, exception_var, args[1])
-        elif len(args) == 1:
-            # args[0] будет block, переменная не указана
-            return CatchClauseNode(None, None, args[0])
-
-    def try_stmt(self, *args):
-        try_block = args[0]
-        catch_clauses = []
-        finally_block = None
-
-        for arg in args[1:]:
-            if isinstance(arg, CatchClauseNode):
-                catch_clauses.append(arg)
-            elif isinstance(arg, BlockNode):
-                finally_block = arg
-
-        return TryNode(try_block, catch_clauses, finally_block)
 
     def __getattr__(self, item):
         if isinstance(item, str) and item.upper() == item:

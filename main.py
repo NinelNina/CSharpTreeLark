@@ -62,15 +62,18 @@ def main():
         catch (Exception ex) {
             a++;
         }
+        finally {
+            b++;
+        }
         
-        for (int i = 0, j = 8; ((i <= 5)); i++, print(5))
+        /*for (int i = 0, j = 8; ((i <= 5)); i++, print(5))
             for(; a < b;)
                 if (a > 7 + b) {
                     c = a + b * (2 - 1) + 0;  // comment 2
                     string str = "98\tура";
                 }
                 else if (a < c)
-                    print(--c + 1);
+                    print(--c + 1);*/
         
         c = b > a ? 3 : 4;
         
