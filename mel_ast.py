@@ -287,16 +287,15 @@ class TernaryNode(StmtNode):
 
 
 class CatchBlockNode(StmtNode):
-    def __init__(self, exception_type: IdentNode, exception_var: IdentNode, block: Union[StmtNode, None] = None,
+    def __init__(self, exception_var: FuncParamsNode, block: Union[StmtNode, None] = None,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
         super().__init__(row=row, col=col, **props)
-        self.exception_type = exception_type
         self.exception_var = exception_var
         self.block = block
 
     @property
     def childs(self) -> Tuple[AstNode, ...]:
-        return (self.exception_type, self.exception_var, self.block)
+        return (self.exception_var, self.block)
 
     def __str__(self) -> str:
         return 'catch'
@@ -344,9 +343,9 @@ class TryNode(StmtNode):
 
     def __str__(self) -> str:
         result = 'try'
-        if self.catch_clauses:
+        if self.catch_clauses is not EMPTY_STMT:
             result += '-catch'
-        if self.finally_block:
+        if self.finally_block is not EMPTY_STMT:
             result += '-finally'
         return result
 

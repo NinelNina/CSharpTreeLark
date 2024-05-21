@@ -130,9 +130,8 @@ parser = Lark('''
     ?body: stmt
         | ";"  -> stmt_list
         
-    ?try_stmt: try_block ( catch_block ( catch_block )* )? ( finally_block )?
     ?try_block: "try" "{" stmt_list "}" -> try_block
-    ?catch_block: "catch" "(" ident ident ")" "{" stmt_list "}" -> catch_block
+    ?catch_block: "catch" "(" func_decl_param ")" "{" stmt_list "}" -> catch_block
     ?finally_block: "finally" "{" stmt_list "}" -> finally_block
 
     ?stmt: vars_decl ";"

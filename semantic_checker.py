@@ -5,7 +5,8 @@ from semantic_base import TypeDesc, ScopeType, SemanticException, BIN_OP_TYPE_CO
     IdentScope, IdentDesc, BinOp, COMB_EQ_OP_TYPE_COMPATIBILITY, CombEqOp, UNAR_OP_TYPE_COMPATIBILITY, UnarOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, ExprNode, CallNode, \
     VarsDeclNode, FuncDeclNode, FuncParamsNode, AssignNode, ReturnOpNode, IfNode, WhileNode, ForNode, StmtListNode, \
-    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT, CombEqNode, UnarOpNode, TernaryNode
+    TypeConvertNode, EMPTY_STMT, EMPTY_IDENT, CombEqNode, UnarOpNode, TernaryNode, TryNode, CatchBlockNode, \
+    FinallyBlockNode, TryBlockNode
 
 BUILT_IN_OBJECTS = '''
     string read() { }
@@ -233,6 +234,44 @@ class SemanticChecker:
         if func is None:
             node.semantic_error('Оператор return применим только к функции')
         node.arg = type_convert(node.arg, func.func.type.return_type, node, 'возвращаемое значение')
+        node.node_type = TypeDesc.VOID
+
+    @visitor.when(TryNode)
+    def semantic_check(self, node: TryNode, scope: IdentScope):
+        # Проверка наличия хотя бы одного из блоков catch или finally
+        if node.catch_clauses == EMPTY_STMT and node.finally_block == EMPTY_STMT:
+            node.semantic_error('Оператор try должен иметь хотя бы один из блоков catch или finally')
+
+        # Проверка try блока
+        node.try_block.semantic_check(self, scope)
+
+        # Проверка catch блока, если он есть
+        if node.catch_clauses != EMPTY_STMT:
+            self.semantic_check(node.catch_clauses, scope)
+
+        # Проверка finally блока, если он есть
+        if node.finally_block != EMPTY_STMT:
+            self.semantic_check(node.finally_block, scope)
+
+        node.node_type = TypeDesc.VOID
+
+    @visitor.when(TryBlockNode)
+    def semantic_check(self, node: TryBlockNode, scope: IdentScope):
+        node.block.semantic_check(self, scope)
+        node.node_type = TypeDesc.VOID
+
+    @visitor.when(CatchBlockNode)
+    def semantic_check(self, node: CatchBlockNode, scope: IdentScope):
+        node.exception_var.semantic_check(self, scope)
+        if node.exception_var.type.type != TypeDesc.EXCEPTION:
+            node.exception_var.semantic_error("Параметр catch блока должен быть типа Exception")
+
+        node.block.semantic_check(self, scope)
+        node.node_type = TypeDesc.VOID
+
+    @visitor.when(FinallyBlockNode)
+    def semantic_check(self, node: FinallyBlockNode, scope: IdentScope):
+        node.block.semantic_check(self, scope)
         node.node_type = TypeDesc.VOID
 
     @visitor.when(IfNode)

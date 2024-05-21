@@ -55,7 +55,7 @@ def main():
         while(a < b) {
            a = c + b;
         }
-        
+                
         try {
             print(a);
         }
@@ -63,7 +63,7 @@ def main():
             a++;
         }
         finally {
-            b++;
+            ++b;
         }
         
         /*for (int i = 0, j = 8; ((i <= 5)); i++, print(5))
