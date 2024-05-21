@@ -238,18 +238,14 @@ class SemanticChecker:
 
     @visitor.when(TryNode)
     def semantic_check(self, node: TryNode, scope: IdentScope):
-        # Проверка наличия хотя бы одного из блоков catch или finally
         if node.catch_clauses == EMPTY_STMT and node.finally_block == EMPTY_STMT:
             node.semantic_error('Оператор try должен иметь хотя бы один из блоков catch или finally')
 
-        # Проверка try блока
         node.try_block.semantic_check(self, scope)
 
-        # Проверка catch блока, если он есть
         if node.catch_clauses != EMPTY_STMT:
             self.semantic_check(node.catch_clauses, scope)
 
-        # Проверка finally блока, если он есть
         if node.finally_block != EMPTY_STMT:
             self.semantic_check(node.finally_block, scope)
 
@@ -315,7 +311,8 @@ class SemanticChecker:
     @visitor.when(FuncDeclNode)
     def semantic_check(self, node: FuncDeclNode, scope: IdentScope):
         if scope.curr_func:
-            node.semantic_error("Объявление функции ({}) внутри другой функции не поддерживается".format(node.name.name))
+            node.semantic_error(
+                "Объявление функции ({}) внутри другой функции не поддерживается".format(node.name.name))
         parent_scope = scope
         node.type.semantic_check(self, scope)
         scope = IdentScope(scope)
@@ -338,7 +335,8 @@ class SemanticChecker:
         except SemanticException as e:
             node.name.semantic_error("Повторное объявление функции {}".format(node.name.name))
         node.body.semantic_check(self, scope)
-        node.node_type = TypeDesc.VOID
+
+        node.node_type = type_.return_type
 
     @visitor.when(StmtListNode)
     def semantic_check(self, node: StmtListNode, scope: IdentScope):
@@ -355,7 +353,6 @@ def prepare_global_scope() -> IdentScope:
     checker = SemanticChecker()
     scope = IdentScope()
     checker.semantic_check(prog, scope)
-    # prog.semantic_check(scope)
     for name, ident in scope.idents.items():
         ident.built_in = True
     scope.var_index = 0
