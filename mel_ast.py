@@ -45,6 +45,9 @@ class AstNode(ABC):
     def semantic_check(self, checker, scope: IdentScope) -> None:
         checker.semantic_check(self, scope)
 
+    def msil_gen(self, generator) -> None:
+        generator.msil_gen(self)
+
     @property
     def tree(self) -> [str, ...]:
         r = [self.to_str_full()]

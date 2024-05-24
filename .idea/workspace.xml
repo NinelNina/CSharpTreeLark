@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bin/.net/mono/ildasm.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x64/IlDasm.chm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x64/IlDasmrc.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x64/ildasm.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x64/ildasm.exe.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x86/IlDasm.chm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x86/IlDasmrc.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x86/ildasm.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.net/x86/ildasm.exe.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/_props.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/_props.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/csc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/csc.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/csc.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ilasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ilasm.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ilasm.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ildasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ildasm.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/ildasm.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/proguard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/proguard.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/proguard.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/python" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/python.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/python.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mel_ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_ast.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="semantica" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2eOkW2RQKwTmlOmv0Tp72PDOJCV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/tasks/CSharpTreeLark/CSharpTreeLark"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\tasks\CSharpTreeLark\CSharpTreeLark" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="" />
+      <created>1711783041889</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711783041889</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -3,6 +3,7 @@ import sys
 import traceback
 
 import mel_parser
+import msil
 import semantic_base
 import semantic_checker
 
@@ -91,19 +92,28 @@ def main():
         traceback.print_exc(file=sys.stderr)
         exit(1)
 
-    print('ast:')
-    print(*prog.tree, sep=os.linesep)
-    print()
-    print('semantic-check:')
+    #print('ast:')
+    #print(*prog.tree, sep=os.linesep)
+    #print()
+    #print('semantic-check:')
     try:
         checker = semantic_checker.SemanticChecker()
         scope = semantic_checker.prepare_global_scope()
         checker.semantic_check(prog, scope)
-        print(*prog.tree, sep=os.linesep)
-        print()
+        #print(*prog.tree, sep=os.linesep)
+        #print()
     except semantic_base.SemanticException as e:
         print('Ошибка: {}'.format(e.message), file=sys.stderr)
         exit(2)
+
+    #print('msil:')
+    try:
+        gen = msil.MsilCodeGenerator()
+        gen.gen_program(prog)
+        print(*gen.code, sep=os.linesep)
+    except msil.MsilException or Exception as e:
+        print('Ошибка: {}'.format(e.message), file=sys.stderr)
+        exit(3)
 
 
 if __name__ == "__main__":
