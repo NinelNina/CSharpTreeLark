@@ -47,44 +47,25 @@ def main():
     }
     '''
     prog2 = '''
-    string main(int a, int c){
-        int b = 1;
-        b /= a;
-        bool an = true;
-        an = !an;
-        
-        while(a < b) {
-           a = c + b;
-        }
-                
-        try {
-            print(a);
-        }
-        catch (Exception ex) {
-            a++;
-        }
-        finally {
-            ++b;
-        }
-        
-        /*for (int i = 0, j = 8; ((i <= 5)); i++, print(5))
-            for(; a < b;)
-                if (a > 7 + b) {
-                    c = a + b * (2 - 1) + 0;  // comment 2
-                    string str = "98\tура";
-                }
-                else if (a < c)
-                    print(--c + 1);*/
-        
-        c = b > a ? 3 : 4;
-        
+    int main2(int a){
+        int b = 2;
+        b += a;
+        print(b);
         return b;  
-    }  
+    }
+    
+    void main() {
+      int f = main2(5);
+    }
     '''
     #prog = mel_parser.parse(prog2)
     #print(*prog.tree, sep=os.linesep)
     #program.execute(prog2)
 
+    msil_only = True
+
+    if not msil_only:
+        print('ast:')
     try:
         prog = mel_parser.parse(prog2)
     except Exception as e:
@@ -92,21 +73,23 @@ def main():
         traceback.print_exc(file=sys.stderr)
         exit(1)
 
-    #print('ast:')
-    #print(*prog.tree, sep=os.linesep)
-    #print()
-    #print('semantic-check:')
+    if not msil_only:
+        print(*prog.tree, sep=os.linesep)
+        print()
+        print('semantic-check:')
     try:
         checker = semantic_checker.SemanticChecker()
         scope = semantic_checker.prepare_global_scope()
         checker.semantic_check(prog, scope)
-        #print(*prog.tree, sep=os.linesep)
-        #print()
+        if not msil_only:
+            print(*prog.tree, sep=os.linesep)
+            print()
     except semantic_base.SemanticException as e:
         print('Ошибка: {}'.format(e.message), file=sys.stderr)
         exit(2)
 
-    #print('msil:')
+    if not msil_only:
+        print('msil:')
     try:
         gen = msil.MsilCodeGenerator()
         gen.gen_program(prog)

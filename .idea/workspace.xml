@@ -5,34 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/.net/mono/ildasm.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x64/IlDasm.chm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x64/IlDasmrc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x64/ildasm.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x64/ildasm.exe.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x86/IlDasm.chm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x86/IlDasmrc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x86/ildasm.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/.net/x86/ildasm.exe.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/_props.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/_props.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/csc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/csc.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/csc.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ilasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ilasm.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ilasm.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ildasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ildasm.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/ildasm.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/proguard" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/proguard.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/proguard.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mel_ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_ast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msil.py" beforeDir="false" afterPath="$PROJECT_DIR$/msil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,18 +31,42 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/tasks/CSharpTreeLark/CSharpTreeLark"
+    "last_opened_file_path": "C:/tasks/CSharpTreeLark/CSharpTreeLark/main.py"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\tasks\CSharpTreeLark\CSharpTreeLark" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="CSharpTreeLark" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Owner\AppData\Local\Programs\Python\Python39\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -88,5 +89,28 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/msil.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/msil.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="node.op == BinOp.ADD" language="Python" />
+        <watch expression="node.op" language="Python" />
+        <watch expression="BinOp.ADD" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

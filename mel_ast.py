@@ -3,7 +3,7 @@ from contextlib import suppress
 from typing import Callable, Tuple, Optional, Union, List
 from enum import Enum
 from semantic_base import TypeDesc, SemanticException, TYPE_CONVERTIBILITY, \
-    IdentScope, IdentDesc
+    IdentScope, IdentDesc, BinOp, CombEqOp
 
 
 class AstNode(ABC):
@@ -101,36 +101,36 @@ class IdentNode(ExprNode):
         return str(self.name)
 
 
-class BinOp(Enum):
-    ADD = '+'
-    SUB = '-'
-    MUL = '*'
-    DIV = '/'
-    QMARK = '?'
-    COLON = ':'
-    GE = '>='
-    LE = '<='
-    NEQUALS = '!='
-    EQUALS = '=='
-    GT = '>'
-    LT = '<'
-    BIT_AND = '&'
-    BIT_OR = '|'
-    LOGICAL_AND = '&&'
-    LOGICAL_OR = '||'
+# class BinOp(Enum):
+#     ADD = '+'
+#     SUB = '-'
+#     MUL = '*'
+#     DIV = '/'
+#     QMARK = '?'
+#     COLON = ':'
+#     GE = '>='
+#     LE = '<='
+#     NEQUALS = '!='
+#     EQUALS = '=='
+#     GT = '>'
+#     LT = '<'
+#     BIT_AND = '&'
+#     BIT_OR = '|'
+#     LOGICAL_AND = '&&'
+#     LOGICAL_OR = '||'
+#
+#     def __str__(self):
+#         return self.value
 
-    def __str__(self):
-        return self.value
 
-
-class CombEqOp(Enum):
-    ADD_EQ = '+='
-    SUB_EQ = '-='
-    MULT_EQ = '*='
-    DIV_EQ = '/='
-
-    def __str__(self):
-        return self.value
+# class CombEqOp(Enum):
+#     ADD_EQ = '+='
+#     SUB_EQ = '-='
+#     MULT_EQ = '*='
+#     DIV_EQ = '/='
+#
+#     def __str__(self):
+#         return self.value
 
 
 class BinOpNode(ExprNode):

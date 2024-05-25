@@ -1,9 +1,9 @@
 from typing import List, Union, Any
 
 import visitor
-from semantic_base import BaseType, TypeDesc, ScopeType, BinOp
+from semantic_base import BaseType, TypeDesc, ScopeType, BinOp, CombEqOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, TypeConvertNode, CallNode, \
-    VarsDeclNode, FuncDeclNode, AssignNode, ReturnOpNode, IfNode, ForNode, StmtListNode, WhileNode
+    VarsDeclNode, FuncDeclNode, AssignNode, ReturnOpNode, IfNode, ForNode, StmtListNode, WhileNode, CombEqNode
 from code_gen_base import CodeLabel, CodeLine, CodeGenerator, find_vars_decls, DEFAULT_TYPE_VALUES
 
 RUNTIME_CLASS_NAME = 'CompilerDemo.Runtime'
@@ -149,8 +149,6 @@ class MsilCodeGenerator(CodeGenerator):
             self.add('mul')
         elif node.op == BinOp.DIV:
             self.add('div')
-        #elif node.op == BinOp.MOD:
-            #self.add('rem')
         elif node.op == BinOp.LOGICAL_AND:
             self.add('and')
         elif node.op == BinOp.LOGICAL_OR:
@@ -159,6 +157,24 @@ class MsilCodeGenerator(CodeGenerator):
             self.add('and')
         elif node.op == BinOp.BIT_OR:
             self.add('or')
+        else:
+            pass
+
+    @visitor.when(CombEqNode)
+    def msil_gen(self, node: CombEqNode) -> None:
+        node.arg1.msil_gen(self)
+        node.arg2.msil_gen(self)
+        if node.op == CombEqOp.ADD_EQ:
+            if node.arg1.node_type == TypeDesc.STR:
+                self.add(f'call {MSIL_TYPE_NAMES[BaseType.STR]} class {RUNTIME_CLASS_NAME}::concat({MSIL_TYPE_NAMES[BaseType.STR]}, {MSIL_TYPE_NAMES[BaseType.STR]})')
+            else:
+                self.add('add')
+        elif node.op == CombEqOp.SUB_EQ:
+            self.add('sub')
+        elif node.op == CombEqOp.MULT_EQ:
+            self.add('mul')
+        elif node.op == CombEqOp.DIV_EQ:
+            self.add('div')
         else:
             pass
 
@@ -290,6 +306,8 @@ class MsilCodeGenerator(CodeGenerator):
         for stmt in prog.childs:
             if not isinstance(stmt, FuncDeclNode):
                 self.msil_gen(stmt)
+
+        self.add('call void class Program::main()')
 
         # т.к. "глобальный" код будет функцией, обязательно надо добавить ret
         self.add('ret')
