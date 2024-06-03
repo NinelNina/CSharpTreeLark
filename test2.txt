@@ -1,0 +1,49 @@
+    int main2(int d) {
+        int g = 1, g2 = g, g3 = 90;
+        int k = 1;
+        k++;
+        --k;
+        bool op1 = true;
+        bool a = !op1;
+        if (!op1)
+        {
+            a = true;
+        }
+        int c = g > k ? 3 : 4;
+        int b = 10;
+
+        /* a = input(); b = input();
+        c = input();
+        */
+
+        do
+        {
+            c = b + 1;
+        } while (c < b);
+
+        while (c > b)
+        {
+            c -= b;
+        }
+
+        for (int i = 0, j = 8; ((i <= 5)) && g != 0; i++, print(5))
+            for (; a;)
+            {
+                if (c > 7 + b)
+                {
+                    c = d + b * (2 - 1) + 0;  // comment 2
+                    string ch = "98\tура";
+                }
+                else if (a)
+                {
+                    print(--c + 1);
+                    a = false;
+                }
+            }
+
+        return c;
+    }
+
+    void main() {
+       int f = main2(10);
+    }

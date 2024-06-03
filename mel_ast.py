@@ -3,7 +3,7 @@ from contextlib import suppress
 from typing import Callable, Tuple, Optional, Union, List
 from enum import Enum
 from semantic_base import TypeDesc, SemanticException, TYPE_CONVERTIBILITY, \
-    IdentScope, IdentDesc, BinOp, CombEqOp
+    IdentScope, IdentDesc, BinOp, CombEqOp, UnarOp
 
 
 class AstNode(ABC):
@@ -101,38 +101,6 @@ class IdentNode(ExprNode):
         return str(self.name)
 
 
-# class BinOp(Enum):
-#     ADD = '+'
-#     SUB = '-'
-#     MUL = '*'
-#     DIV = '/'
-#     QMARK = '?'
-#     COLON = ':'
-#     GE = '>='
-#     LE = '<='
-#     NEQUALS = '!='
-#     EQUALS = '=='
-#     GT = '>'
-#     LT = '<'
-#     BIT_AND = '&'
-#     BIT_OR = '|'
-#     LOGICAL_AND = '&&'
-#     LOGICAL_OR = '||'
-#
-#     def __str__(self):
-#         return self.value
-
-
-# class CombEqOp(Enum):
-#     ADD_EQ = '+='
-#     SUB_EQ = '-='
-#     MULT_EQ = '*='
-#     DIV_EQ = '/='
-#
-#     def __str__(self):
-#         return self.value
-
-
 class BinOpNode(ExprNode):
     def __init__(self, op: BinOp, arg1: ExprNode, arg2: ExprNode,
                  row: Optional[int] = None, col: Optional[int] = None, **props):
@@ -165,14 +133,14 @@ class CombEqNode(ExprNode):
         return str(self.op.value)
 
 
-class UnarOp(Enum):
-    INC = '++'
-    DEC = '--'
-    NOT = '!'
-    RETURN = 'return'
-
-    def __str__(self):
-        return self.value
+# class UnarOp(Enum):
+#     INC = '++'
+#     DEC = '--'
+#     NOT = '!'
+#     RETURN = 'return'
+#
+#     def __str__(self):
+#         return self.value
 
 
 class UnarOpNode(ExprNode):

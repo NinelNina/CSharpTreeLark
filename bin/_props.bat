@@ -1,6 +1,6 @@
 @echo off
 
-set PYTHON_HOME=C:\Users\Owner\AppData\Local\Programs\Python\Python39
+set PYTHON_HOME=C:\Users\Nina\AppData\Local\Programs\Python\Python311
 set PYTHON="%PYTHON_HOME%\python.exe"
 
 set NET_HOME=C:\Windows\Microsoft.NET\Framework64\v4.0.30319

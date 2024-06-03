@@ -1,9 +1,10 @@
 from typing import List, Union, Any
 
 import visitor
-from semantic_base import BaseType, TypeDesc, ScopeType, BinOp, CombEqOp
+from semantic_base import BaseType, TypeDesc, ScopeType, BinOp, CombEqOp, UnarOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, TypeConvertNode, CallNode, \
-    VarsDeclNode, FuncDeclNode, AssignNode, ReturnOpNode, IfNode, ForNode, StmtListNode, WhileNode, CombEqNode
+    VarsDeclNode, FuncDeclNode, AssignNode, ReturnOpNode, IfNode, ForNode, StmtListNode, WhileNode, CombEqNode, \
+    UnarOpNode
 from code_gen_base import CodeLabel, CodeLine, CodeGenerator, find_vars_decls, DEFAULT_TYPE_VALUES
 
 RUNTIME_CLASS_NAME = 'CompilerDemo.Runtime'
@@ -149,6 +150,8 @@ class MsilCodeGenerator(CodeGenerator):
             self.add('mul')
         elif node.op == BinOp.DIV:
             self.add('div')
+        elif node.op == BinOp.MOD:
+            self.add('rem')
         elif node.op == BinOp.LOGICAL_AND:
             self.add('and')
         elif node.op == BinOp.LOGICAL_OR:
@@ -175,8 +178,49 @@ class MsilCodeGenerator(CodeGenerator):
             self.add('mul')
         elif node.op == CombEqOp.DIV_EQ:
             self.add('div')
+        elif node.op == CombEqOp.MOD_EQ:
+            self.add('rem')
         else:
             pass
+
+    @visitor.when(UnarOpNode)
+    def msil_gen(self, node: UnarOpNode) -> None:
+        if node.op == UnarOp.INC:
+            node.arg.msil_gen(self)
+            self.add('ldc.i4.1')
+            self.add('add')
+            var = node.arg
+            if var.node_ident.scope == ScopeType.LOCAL:
+                self.add('stloc', var.node_ident.index)
+            elif var.node_ident.scope == ScopeType.PARAM:
+                self.add('starg', var.node_ident.index)
+            elif var.node_ident.scope in (ScopeType.GLOBAL, ScopeType.GLOBAL_LOCAL):
+                self.add(
+                    f'ldsfld {MSIL_TYPE_NAMES[var.node_ident.type.base_type]} {PROGRAM_CLASS_NAME}::_gv{var.node_ident.index}')
+                self.add('ldc.i4.1')
+                self.add('add')
+                self.add(f'stsfld {MSIL_TYPE_NAMES[var.node_ident.type.base_type]} Program::_gv{var.node_ident.index}')
+        elif node.op == UnarOp.DEC:
+            node.arg.msil_gen(self)
+            self.add('ldc.i4.1')
+            self.add('sub')
+            var = node.arg
+            if var.node_ident.scope == ScopeType.LOCAL:
+                self.add('stloc', var.node_ident.index)
+            elif var.node_ident.scope == ScopeType.PARAM:
+                self.add('starg', var.node_ident.index)
+            elif var.node_ident.scope in (ScopeType.GLOBAL, ScopeType.GLOBAL_LOCAL):
+                self.add(
+                    f'ldsfld {MSIL_TYPE_NAMES[var.node_ident.type.base_type]} {PROGRAM_CLASS_NAME}::_gv{var.node_ident.index}')
+                self.add('ldc.i4.1')
+                self.add('sub')
+                self.add(f'stsfld {MSIL_TYPE_NAMES[var.node_ident.type.base_type]} Program::_gv{var.node_ident.index}')
+        elif node.op == UnarOp.NOT:
+            # Вычисляем значение аргумента
+            node.arg.msil_gen(self)
+            # Применяем оператор NOT к значению
+            self.add('ldc.i4.1')
+            self.add('xor')
 
     @visitor.when(TypeConvertNode)
     def msil_gen(self, node: TypeConvertNode) -> None:

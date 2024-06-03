@@ -7,6 +7,7 @@ class BinOp(Enum):
     SUB = '-'
     MUL = '*'
     DIV = '/'
+    MOD = '%'
     QMARK = '?'
     COLON = ':'
     GE = '>='
@@ -29,6 +30,7 @@ class CombEqOp(Enum):
     SUB_EQ = '-='
     MULT_EQ = '*='
     DIV_EQ = '/='
+    MOD_EQ = '%='
 
     def __str__(self):
         return self.value
@@ -264,6 +266,10 @@ BIN_OP_TYPE_COMPATIBILITY = {
         (INT, INT): INT,
         (FLOAT, FLOAT): FLOAT
     },
+    BinOp.MOD: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT
+    },
     BinOp.GT: {
         (INT, INT): BOOL,
         (FLOAT, FLOAT): BOOL,
@@ -325,6 +331,10 @@ COMB_EQ_OP_TYPE_COMPATIBILITY = {
         (FLOAT, FLOAT): FLOAT
     },
     CombEqOp.DIV_EQ: {
+        (INT, INT): INT,
+        (FLOAT, FLOAT): FLOAT
+    },
+    CombEqOp.MOD_EQ: {
         (INT, INT): INT,
         (FLOAT, FLOAT): FLOAT
     }

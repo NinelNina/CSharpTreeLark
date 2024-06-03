@@ -4,7 +4,7 @@ CD=$(dirname "$(readlink -f "$0")")  # "
 
 
 PYTHON_HOME=/opt/python3
-PYTHON="$PYTHON_HOME/bin/python"
+PYTHON="$PYTHON_HOME/python"
 
 WINEPREFIX='$HOME/.wine.app'
 

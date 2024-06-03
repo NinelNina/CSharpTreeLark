@@ -1,0 +1,47 @@
+int Sum(int a, int b)
+    {
+        return a + b;
+    }
+
+void main()
+    {
+        // Приветственное сообщение
+        print("Привет, мир!");
+
+        // Примеры использования переменных
+        int number = 42;
+        string text = "Это тестовая строка.";
+        bool isTrue = true;
+
+        // Вывод переменных
+        print("Число: " + number);
+        print("Текст: " + text);
+        print("Булево значение: " + isTrue);
+
+        // Примеры использования условных операторов
+        if (number > 40)
+        {
+            println("Число больше 40.");
+        }
+        else
+        {
+            println("Число не больше 40.");
+        }
+
+        // Примеры использования циклов
+        for (int i = 0; i < 5; i++)
+        {
+            println("Цикл for, итерация: " + i);
+        }
+
+        int count = 0;
+        while (count < 3)
+        {
+            println("Цикл while, итерация: " + count);
+            count++;
+        }
+
+        // Примеры использования методов
+        int sumResult = Sum(5, 7);
+        println("Сумма 5 и 7 равна: " + sumResult);
+    }

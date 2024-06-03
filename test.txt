@@ -1,12 +1,14 @@
 int main2(int a){
-        int b = 1;
-        b = b + a;
-
-print(b);
-
+        int b = 2;
+        b++;
+        //b /= a;
+        //a %= b;
+        //b += a + 1;
+        println(b);
         return b;
     }
 
     void main() {
       int f = main2(5);
+      println(f);
     }
