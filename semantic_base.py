@@ -356,6 +356,7 @@ UNAR_OP_TYPE_COMPATIBILITY = {
         INT: INT,
         FLOAT: FLOAT,
         BOOL: BOOL,
-        STR: STR
+        STR: STR,
+        EXCEPTION: EXCEPTION
     }
 }

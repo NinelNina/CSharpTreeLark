@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Added ternary operator to msil">
-      <change afterPath="$PROJECT_DIR$/tests/1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/5.txt" afterDir="false" />
+    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Add tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mel_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/semantic_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/semantic_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/5.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="test3.txt" />
+      <option name="PARAMETERS" value="tests/5.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -124,7 +122,8 @@
       <workItem from="1717447709880" duration="160000" />
       <workItem from="1717447885546" duration="305000" />
       <workItem from="1717448294040" duration="7766000" />
-      <workItem from="1717518991700" duration="6980000" />
+      <workItem from="1717518991700" duration="7045000" />
+      <workItem from="1717532596172" duration="3218000" />
     </task>
     <task id="LOCAL-00001" summary="Fixes in parser&#10;Changes in msil.py">
       <option name="closed" value="true" />
@@ -142,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717527493501</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add tests">
+      <option name="closed" value="true" />
+      <created>1717528952608</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717528952608</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +170,8 @@
     <MESSAGE value="Vcs" />
     <MESSAGE value="Fixes in parser&#10;Changes in msil.py" />
     <MESSAGE value="Added ternary operator to msil" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ternary operator to msil" />
+    <MESSAGE value="Add tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -179,9 +187,14 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mel_parser.py</url>
-          <line>185</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/semantic_checker.py</url>
+          <line>229</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mel_ast.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -195,6 +208,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSharpTreeLark$mel_parser.coverage" NAME="mel_parser Coverage Results" MODIFIED="1717448028408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSharpTreeLark$main.coverage" NAME="main Coverage Results" MODIFIED="1717521557637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CSharpTreeLark$main.coverage" NAME="main Coverage Results" MODIFIED="1717537466991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

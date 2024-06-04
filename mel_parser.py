@@ -22,7 +22,11 @@ parser = Lark('''
     TRUE:    "true"
     FALSE:   "false"
 
+    NEGATIVE_NUMBER: "-" NUMBER
+    
     num: NUMBER -> literal
+        | NEGATIVE_NUMBER -> literal
+
     str: ESCAPED_STRING -> literal
     bool_lit: ( TRUE | FALSE ) -> literal
     ident: CNAME
