@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Fixes in parser&#10;Changes in msil.py">
-      <change afterPath="$PROJECT_DIR$/test4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test5.txt" afterDir="false" />
+    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Added ternary operator to msil">
+      <change afterPath="$PROJECT_DIR$/tests/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/5.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/msil.py" beforeDir="false" afterPath="$PROJECT_DIR$/msil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test3.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +82,10 @@
       <recent name="I:\Programming\Python\CSharpTreeLark" />
       <recent name="C:\tasks\CSharpTreeLark\CSharpTreeLark" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="I:\Programming\Python\CSharpTreeLark\tests" />
+      <recent name="I:\Programming\Python\CSharpTreeLark" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -120,7 +124,7 @@
       <workItem from="1717447709880" duration="160000" />
       <workItem from="1717447885546" duration="305000" />
       <workItem from="1717448294040" duration="7766000" />
-      <workItem from="1717518991700" duration="5276000" />
+      <workItem from="1717518991700" duration="6980000" />
     </task>
     <task id="LOCAL-00001" summary="Fixes in parser&#10;Changes in msil.py">
       <option name="closed" value="true" />
@@ -130,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717456139746</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added ternary operator to msil">
+      <option name="closed" value="true" />
+      <created>1717527493501</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717527493501</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +162,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Vcs" />
     <MESSAGE value="Fixes in parser&#10;Changes in msil.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes in parser&#10;Changes in msil.py" />
+    <MESSAGE value="Added ternary operator to msil" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ternary operator to msil" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
