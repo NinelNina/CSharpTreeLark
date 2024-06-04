@@ -14,9 +14,9 @@ void main()
         bool isTrue = true;
 
         // Вывод переменных
-        print("Число: " + number);
-        print("Текст: " + text);
-        print("Булево значение: " + isTrue);
+        println("Число: " + number);
+        println("Текст: " + text);
+        println("Булево значение: " + isTrue);
 
         // Примеры использования условных операторов
         if (number > 40)

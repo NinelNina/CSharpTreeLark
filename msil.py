@@ -4,7 +4,7 @@ import visitor
 from semantic_base import BaseType, TypeDesc, ScopeType, BinOp, CombEqOp, UnarOp
 from mel_ast import AstNode, LiteralNode, IdentNode, BinOpNode, TypeConvertNode, CallNode, \
     VarsDeclNode, FuncDeclNode, AssignNode, ReturnOpNode, IfNode, ForNode, StmtListNode, WhileNode, CombEqNode, \
-    UnarOpNode
+    UnarOpNode, TernaryNode
 from code_gen_base import CodeLabel, CodeLine, CodeGenerator, find_vars_decls, DEFAULT_TYPE_VALUES
 
 RUNTIME_CLASS_NAME = 'CompilerDemo.Runtime'
@@ -216,9 +216,7 @@ class MsilCodeGenerator(CodeGenerator):
                 self.add('sub')
                 self.add(f'stsfld {MSIL_TYPE_NAMES[var.node_ident.type.base_type]} Program::_gv{var.node_ident.index}')
         elif node.op == UnarOp.NOT:
-            # Вычисляем значение аргумента
             node.arg.msil_gen(self)
-            # Применяем оператор NOT к значению
             self.add('ldc.i4.1')
             self.add('xor')
 
@@ -262,6 +260,22 @@ class MsilCodeGenerator(CodeGenerator):
         self.add(else_label)
         if node.else_stmt:
             node.else_stmt.msil_gen(self)
+        self.add(end_label)
+
+    @visitor.when(TernaryNode)
+    def msil_gen(self, node: TernaryNode) -> None:
+        else_label = CodeLabel()
+        end_label = CodeLabel()
+
+        node.cond.msil_gen(self)
+        self.add('brfalse', else_label)
+
+        node.true_expr.msil_gen(self)
+        self.add('br', end_label)
+
+        self.add(else_label)
+        node.false_expr.msil_gen(self)
+
         self.add(end_label)
 
     @visitor.when(WhileNode)

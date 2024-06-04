@@ -4,26 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Vcs">
-      <change afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CSharpTreeLark.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSharpTreeLark.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Fixes in parser&#10;Changes in msil.py">
+      <change afterPath="$PROJECT_DIR$/test4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test5.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/_props.bat" beforeDir="false" afterPath="$PROJECT_DIR$/bin/_props.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/_props.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/_props.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/proguard" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proguard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/proguard.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bin/proguard.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/python.bat" beforeDir="false" afterPath="$PROJECT_DIR$/bin/python.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mel_ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_ast.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mel_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/msil.py" beforeDir="false" afterPath="$PROJECT_DIR$/msil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/semantic_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/semantic_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.exe" beforeDir="false" afterPath="$PROJECT_DIR$/test.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.msil" beforeDir="false" afterPath="$PROJECT_DIR$/test.msil" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test3.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,21 +62,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "codeGeneration",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "I:/Programming/Python/CSharpTreeLark",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;codeGeneration&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;I:/Programming/Python/CSharpTreeLark&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="I:\Programming\Python\CSharpTreeLark" />
@@ -112,7 +99,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="test2.txt" />
+      <option name="PARAMETERS" value="test3.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -132,8 +119,18 @@
       <workItem from="1717444855079" duration="2810000" />
       <workItem from="1717447709880" duration="160000" />
       <workItem from="1717447885546" duration="305000" />
-      <workItem from="1717448294040" duration="7640000" />
+      <workItem from="1717448294040" duration="7766000" />
+      <workItem from="1717518991700" duration="5276000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixes in parser&#10;Changes in msil.py">
+      <option name="closed" value="true" />
+      <created>1717456139746</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717456139746</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,7 +149,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Vcs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Vcs" />
+    <MESSAGE value="Fixes in parser&#10;Changes in msil.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes in parser&#10;Changes in msil.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -184,6 +182,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSharpTreeLark$mel_parser.coverage" NAME="mel_parser Coverage Results" MODIFIED="1717448028408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSharpTreeLark$main.coverage" NAME="main Coverage Results" MODIFIED="1717456051705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CSharpTreeLark$main.coverage" NAME="main Coverage Results" MODIFIED="1717521557637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,0 +1,11 @@
+int main2(int a){
+        int b = 2;
+        int c = b > a ? 3 : 4;
+        c++;
+        return c;
+    }
+
+    void main() {
+      int f = main2(5);
+      println(f);
+    }

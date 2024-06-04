@@ -34,9 +34,9 @@
                     c = d + b * (2 - 1) + 0;  // comment 2
                     string ch = "98\tура";
                 }
-                else if (a)
+                else
                 {
-                    print(--c + 1);
+                    print(c + 1);
                     a = false;
                 }
             }
