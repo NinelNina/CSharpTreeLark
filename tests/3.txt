@@ -1,8 +1,3 @@
-int v1 = 0;
-{
-  int v2 = 1;
-}
-
 int input_int(string name, int c) {
     int x = 8;
     if (name != "") {
@@ -11,7 +6,7 @@ int input_int(string name, int c) {
         string s = "Введите число: ";
         print(s);
     }
-    return  to_int(read());
+    return to_int(read());
 }
 
 int factorial(int a) {
@@ -22,13 +17,8 @@ int factorial(int a) {
   }
 }
 
-float sqrt(float v) {
-  if (v > 1) {
-
-  }
-}
-
 void main(){
+
     int a = input_int("a", 2);
     int b = input_int("", 2);
     int c = a + b;

@@ -31,11 +31,8 @@ void main(){
                 c = a + b * (2 - 1) + 0;  // comment 2
                 string bb = "98\tура";
             }
-            else if (a)
+            else if (a > c)
                 print((c + 1) + " " + 89.89);
-
-    println("А сейчас бесконечный цикл :)");
-    for(bool i = true;;) ;
 
     int z;
     z=0;
