@@ -1,0 +1,32 @@
+.assembly program
+{
+}
+.class public Program
+{
+  .method public static int32 sum(int32 a, int32 b) cil managed
+  {
+    ldarg 0
+    ldarg 1
+    add
+    ret
+  }
+  .method public static void main() cil managed
+  {
+    .locals init (int32 _v0, int32 _v1, int32 _v2)
+    ldc.i4 5
+    stloc 0
+    ldloc 0
+    ldc.i4 100
+    call int32 class Program::sum(int32, int32)
+    call string class CompilerDemo.Runtime::convert(int32)
+    call void class CompilerDemo.Runtime::println(string)
+    ret
+  }
+  
+  .method public static void Main()
+  {
+    .entrypoint
+    call void class Program::main()
+    ret
+  }
+}

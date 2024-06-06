@@ -1,0 +1,103 @@
+.assembly program
+{
+}
+.class public Program
+{
+  .method public static int32 Sum(int32 a, int32 b) cil managed
+  {
+    ldarg 0
+    ldarg 1
+    add
+    ret
+  }
+  .method public static void main() cil managed
+  {
+    .locals init (int32 _v0, string _v1, bool _v2, int32 _v3, int32 _v4, int32 _v5)
+    ldstr "Привет, мир!"
+    call void class CompilerDemo.Runtime::print(string)
+    ldc.i4 42
+    stloc 0
+    ldstr "Это тестовая строка."
+    stloc 1
+    ldc.i4 1
+    stloc 2
+    ldstr "Число: "
+    ldloc 0
+    call string class CompilerDemo.Runtime::convert(int32)
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::print(string)
+    ldstr "Текст: "
+    ldloc 1
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::print(string)
+    ldstr "Булево значение: "
+    ldloc 2
+    call string class CompilerDemo.Runtime::convert(bool)
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::print(string)
+    ldloc 0
+    ldc.i4 40
+    cgt
+    brfalse L_0
+    ldstr "Число больше 40."
+    call void class CompilerDemo.Runtime::println(string)
+    br L_1
+  L_0:
+    ldstr "Число не больше 40."
+    call void class CompilerDemo.Runtime::println(string)
+  L_1:
+    ldc.i4 0
+    stloc 3
+  L_2:
+    ldloc 3
+    ldc.i4 5
+    clt
+    brfalse L_3
+    ldstr "Цикл for, итерация: "
+    ldloc 3
+    call string class CompilerDemo.Runtime::convert(int32)
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::println(string)
+    ldloc 3
+    ldc.i4.1
+    add
+    stloc 3
+    br L_2
+  L_3:
+    ldc.i4 0
+    stloc 4
+  L_4:
+    ldloc 4
+    ldc.i4 3
+    clt
+    brfalse L_5
+    ldstr "Цикл while, итерация: "
+    ldloc 4
+    call string class CompilerDemo.Runtime::convert(int32)
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::println(string)
+    ldloc 4
+    ldc.i4.1
+    add
+    stloc 4
+    br L_4
+  L_5:
+    ldc.i4 5
+    ldc.i4 7
+    call int32 class Program::Sum(int32, int32)
+    stloc 5
+    ldstr "Сумма 5 и 7 равна: "
+    ldloc 5
+    call string class CompilerDemo.Runtime::convert(int32)
+    call string class CompilerDemo.Runtime::concat(string, string)
+    call void class CompilerDemo.Runtime::println(string)
+    ret
+  }
+  
+  .method public static void Main()
+  {
+    .entrypoint
+    call void class Program::main()
+    ret
+  }
+}

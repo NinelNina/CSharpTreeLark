@@ -1,0 +1,276 @@
+version 6;
+public class _3 extends java.lang.Object
+{
+  public static int input_int(java.lang.String name, int c)
+  {
+    ldc 8
+    istore 2
+    aload 0
+    ldc ""
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifne L_0
+    iconst_0
+    goto L_1
+  L_0:
+    iconst_1
+  L_1:
+    ifeq L_2
+    ldc "Введите "
+    aload 0
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    ldc ": "
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void print(java.lang.String)
+    goto L_3
+  L_2:
+    ldc "Введите число: "
+    astore 3
+    aload 3
+    invokestatic CompilerDemo.Runtime#void print(java.lang.String)
+  L_3:
+    invokestatic CompilerDemo.Runtime#java.lang.String read()
+    invokestatic CompilerDemo.Runtime#int to_int(java.lang.String)
+    ireturn
+  }
+  public static int factorial(int a)
+  {
+    iload 0
+    ldc 1
+    if_icmple L_4
+    iconst_0
+    goto L_5
+  L_4:
+    iconst_1
+  L_5:
+    ifeq L_6
+    ldc 1
+    ireturn
+    goto L_7
+  L_6:
+    iload 0
+    iload 0
+    ldc 1
+    isub
+    invokestatic _3#int factorial(int)
+    imul
+    ireturn
+  L_7:
+    ldc 0
+    ireturn
+  }
+  public static void main()
+  {
+    ldc "a"
+    ldc 2
+    invokestatic _3#int input_int(java.lang.String, int)
+    istore 0
+    ldc ""
+    ldc 2
+    invokestatic _3#int input_int(java.lang.String, int)
+    istore 1
+    iload 0
+    iload 1
+    iadd
+    istore 2
+    ldc "c = a + b = "
+    iload 2
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    iload 2
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc 0
+    istore 3
+  L_8:
+    iload 3
+    ldc 30
+    if_icmplt L_9
+    iconst_0
+    goto L_10
+  L_9:
+    iconst_1
+  L_10:
+    ifeq L_21
+    iload 3
+    i2d
+    dstore 4
+    iload 3
+    ldc 2
+    irem
+    ldc 0
+    if_icmpeq L_11
+    iconst_0
+    goto L_12
+  L_11:
+    iconst_1
+  L_12:
+    iload 3
+    ldc 3
+    irem
+    ldc 0
+    if_icmpeq L_13
+    iconst_0
+    goto L_14
+  L_13:
+    iconst_1
+  L_14:
+    iand
+    dload 4
+    ldc 10
+    i2d
+    dcmpg
+    iflt L_15
+    iconst_0
+    goto L_16
+  L_15:
+    iconst_1
+  L_16:
+    dload 4
+    ldc 20
+    i2d
+    dcmpg
+    ifgt L_17
+    iconst_0
+    goto L_18
+  L_17:
+    iconst_1
+  L_18:
+    ior
+    iand
+    ifeq L_19
+    iload 3
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    goto L_20
+  L_19:
+  L_20:
+    iload 3
+    ldc 1
+    iadd
+    istore 3
+    goto L_8
+  L_21:
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifgt L_22
+    iconst_0
+    goto L_23
+  L_22:
+    iconst_1
+  L_23:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifge L_24
+    iconst_0
+    goto L_25
+  L_24:
+    iconst_1
+  L_25:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "a"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifge L_26
+    iconst_0
+    goto L_27
+  L_26:
+    iconst_1
+  L_27:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    iflt L_28
+    iconst_0
+    goto L_29
+  L_28:
+    iconst_1
+  L_29:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifle L_30
+    iconst_0
+    goto L_31
+  L_30:
+    iconst_1
+  L_31:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "a"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifle L_32
+    iconst_0
+    goto L_33
+  L_32:
+    iconst_1
+  L_33:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "a"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifeq L_34
+    iconst_0
+    goto L_35
+  L_34:
+    iconst_1
+  L_35:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "a"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifne L_36
+    iconst_0
+    goto L_37
+  L_36:
+    iconst_1
+  L_37:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifeq L_38
+    iconst_0
+    goto L_39
+  L_38:
+    iconst_1
+  L_39:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "a"
+    ldc "b"
+    invokevirtual java.lang.String#int compareTo(java.lang.String)
+    ifne L_40
+    iconst_0
+    goto L_41
+  L_40:
+    iconst_1
+  L_41:
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc 5
+    invokestatic _3#int factorial(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    return
+  }
+  
+  public static void main(java.lang.String[])
+  {
+    invokestatic _3#void main()
+    return
+  }
+}

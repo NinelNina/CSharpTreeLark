@@ -1,0 +1,114 @@
+version 6;
+public class test3 extends java.lang.Object
+{
+  public static int Sum(int a, int b)
+  {
+    iload 0
+    iload 1
+    iadd
+    ireturn
+  }
+  public static void main()
+  {
+    ldc "Привет, мир!"
+    invokestatic CompilerDemo.Runtime#void print(java.lang.String)
+    ldc 42
+    istore 0
+    ldc "Это тестовая строка."
+    astore 1
+    iconst_1
+    istore 2
+    ldc "Число: "
+    iload 0
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "Текст: "
+    aload 1
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    ldc "Булево значение: "
+    iload 2
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(boolean)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    iload 0
+    ldc 40
+    if_icmpgt L_0
+    iconst_0
+    goto L_1
+  L_0:
+    iconst_1
+  L_1:
+    ifeq L_2
+    ldc "Число больше 40."
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    goto L_3
+  L_2:
+    ldc "Число не больше 40."
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+  L_3:
+    ldc 0
+    istore 3
+  L_4:
+    iload 3
+    ldc 5
+    if_icmplt L_5
+    iconst_0
+    goto L_6
+  L_5:
+    iconst_1
+  L_6:
+    ifeq L_7
+    ldc "Цикл for, итерация: "
+    iload 3
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    iload 3
+    iconst_1
+    iadd
+    istore 3
+    goto L_4
+  L_7:
+    ldc 0
+    istore 4
+  L_8:
+    iload 4
+    ldc 3
+    if_icmplt L_9
+    iconst_0
+    goto L_10
+  L_9:
+    iconst_1
+  L_10:
+    ifeq L_11
+    ldc "Цикл while, итерация: "
+    iload 4
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    iload 4
+    iconst_1
+    iadd
+    istore 4
+    goto L_8
+  L_11:
+    ldc 5
+    ldc 7
+    invokestatic test3#int Sum(int, int)
+    istore 5
+    ldc "Сумма 5 и 7 равна: "
+    iload 5
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#java.lang.String concat(java.lang.String, java.lang.String)
+    invokestatic CompilerDemo.Runtime#void println(java.lang.String)
+    return
+  }
+  
+  public static void main(java.lang.String[])
+  {
+    invokestatic test3#void main()
+    return
+  }
+}

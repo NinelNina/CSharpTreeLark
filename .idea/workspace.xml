@@ -4,10 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Fixed negative numbers support">
+    <list default="true" id="672012bf-cba7-471c-95c2-632e0e77e4dd" name="Changes" comment="Update tests">
+      <change afterPath="$PROJECT_DIR$/bin/jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/jar.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/jar.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/java.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/java.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/javac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/javac.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/javac.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/compile-java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/compile-java.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/compile-java.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jbc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CSharpTreeLark.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSharpTreeLark.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/_props.bat" beforeDir="false" afterPath="$PROJECT_DIR$/bin/_props.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/python.bat" beforeDir="false" afterPath="$PROJECT_DIR$/bin/python.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mel_ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/mel_ast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/program.py" beforeDir="false" afterPath="$PROJECT_DIR$/program.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/4.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +99,9 @@
       <recent name="C:\tasks\CSharpTreeLark\CSharpTreeLark" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="I:\Programming\Python\CSharpTreeLark\tests" />
       <recent name="I:\Programming\Python\CSharpTreeLark" />
+      <recent name="I:\Programming\Python\CSharpTreeLark\bin" />
+      <recent name="I:\Programming\Python\CSharpTreeLark\tests" />
     </key>
   </component>
   <component name="RunManager">
@@ -93,14 +113,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Users\Owner\AppData\Local\Programs\Python\Python39\python.exe" />
-      <option name="SDK_NAME" value="Python 3.11 (CSharpTreeLark)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="tests/5.txt" />
+      <option name="PARAMETERS" value="tests/4.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -123,7 +142,8 @@
       <workItem from="1717448294040" duration="7766000" />
       <workItem from="1717518991700" duration="7045000" />
       <workItem from="1717532596172" duration="4019000" />
-      <workItem from="1717596974096" duration="344000" />
+      <workItem from="1717596974096" duration="381000" />
+      <workItem from="1717610849105" duration="6821000" />
     </task>
     <task id="LOCAL-00001" summary="Fixes in parser&#10;Changes in msil.py">
       <option name="closed" value="true" />
@@ -157,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717537715500</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update tests">
+      <option name="closed" value="true" />
+      <created>1717597337116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717597337116</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,16 +208,12 @@
     <MESSAGE value="Added ternary operator to msil" />
     <MESSAGE value="Add tests" />
     <MESSAGE value="Fixed negative numbers support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed negative numbers support" />
+    <MESSAGE value="Update tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/msil.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/msil.py</url>
           <line>142</line>
@@ -209,9 +233,5 @@
         <watch expression="BinOp.ADD" language="Python" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CSharpTreeLark$mel_parser.coverage" NAME="mel_parser Coverage Results" MODIFIED="1717448028408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSharpTreeLark$main.coverage" NAME="main Coverage Results" MODIFIED="1717537614276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

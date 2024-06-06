@@ -1,0 +1,141 @@
+.assembly program
+{
+}
+.class public Program
+{
+  .method public static int32 main2(int32 d) cil managed
+  {
+    .locals init (int32 _v0, int32 _v1, int32 _v2, int32 _v3, bool _v4, bool _v5, int32 _v6, int32 _v7, int32 _v8, int32 _v9, string _v10)
+    ldc.i4 1
+    stloc 0
+    ldloc 0
+    stloc 1
+    ldc.i4 90
+    stloc 2
+    ldc.i4 1
+    stloc 3
+    ldloc 3
+    ldc.i4.1
+    add
+    stloc 3
+    ldloc 3
+    ldc.i4.1
+    sub
+    stloc 3
+    ldc.i4 1
+    stloc 4
+    ldloc 4
+    ldc.i4.1
+    xor
+    stloc 5
+    ldloc 4
+    ldc.i4.1
+    xor
+    brfalse L_0
+    ldc.i4 1
+    stloc 5
+    br L_1
+  L_0:
+  L_1:
+    ldloc 0
+    ldloc 3
+    cgt
+    brfalse L_2
+    ldc.i4 3
+    br L_3
+  L_2:
+    ldc.i4 4
+  L_3:
+    stloc 6
+    ldc.i4 10
+    stloc 7
+  L_4:
+    ldloc 6
+    ldloc 7
+    cgt
+    brfalse L_5
+    ldloc 6
+    ldloc 7
+    sub
+    stloc 6
+    br L_4
+  L_5:
+    ldc.i4 0
+    stloc 8
+    ldc.i4 8
+    stloc 9
+  L_6:
+    ldloc 8
+    ldc.i4 5
+    cgt
+    ldc.i4.0
+    ceq
+    ldloc 0
+    ldc.i4 0
+    ceq
+    ldc.i4.0
+    ceq
+    and
+    brfalse L_11
+  L_7:
+    ldloc 5
+    brfalse L_10
+    ldloc 6
+    ldc.i4 7
+    ldloc 7
+    add
+    cgt
+    brfalse L_8
+    ldarg 0
+    ldloc 7
+    ldc.i4 2
+    ldc.i4 1
+    sub
+    mul
+    add
+    ldc.i4 0
+    add
+    stloc 6
+    ldstr "98	ура"
+    stloc 10
+    br L_9
+  L_8:
+    ldloc 6
+    ldc.i4.1
+    sub
+    stloc 6
+    call string class CompilerDemo.Runtime::convert(int32)
+    call void class CompilerDemo.Runtime::print(string)
+    ldc.i4 1
+    stloc 5
+  L_9:
+    br L_7
+  L_10:
+    ldloc 8
+    ldc.i4.1
+    add
+    stloc 8
+    ldc.i4 5
+    call string class CompilerDemo.Runtime::convert(int32)
+    call void class CompilerDemo.Runtime::print(string)
+    br L_6
+  L_11:
+    ldloc 6
+    ret
+  }
+  .method public static void main() cil managed
+  {
+    .locals init (int32 _v0)
+    ldc.i4 10
+    call int32 class Program::main2(int32)
+    stloc 0
+    ret
+  }
+  
+  .method public static void Main()
+  {
+    .entrypoint
+    call void class Program::main()
+    ret
+  }
+}

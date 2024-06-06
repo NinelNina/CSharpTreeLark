@@ -5,11 +5,16 @@ int sum(int a, int b) {
 
 void main(){
     int a = 5;
+    int c = a < 9 ? 3 : 4;
     {
       int b;
     }
     {
       int b;
     }
+    c += 3;
+    c++;
+    println(c);
+
     println(sum(a, 100));
 }

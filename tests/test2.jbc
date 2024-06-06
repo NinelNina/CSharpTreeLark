@@ -1,0 +1,156 @@
+version 6;
+public class test2 extends java.lang.Object
+{
+  public static int main2(int d)
+  {
+    ldc 1
+    istore 1
+    iload 1
+    istore 2
+    ldc 90
+    istore 3
+    ldc 1
+    istore 4
+    iload 4
+    iconst_1
+    iadd
+    istore 3
+    iload 4
+    iconst_1
+    isub
+    istore 3
+    iconst_1
+    istore 5
+    iload 5
+    iconst_1
+    ixor
+    istore 6
+    iload 5
+    iconst_1
+    ixor
+    ifeq L_0
+    iconst_1
+    istore 6
+    goto L_1
+  L_0:
+  L_1:
+    iload 1
+    iload 4
+    if_icmpgt L_2
+    iconst_0
+    goto L_3
+  L_2:
+    iconst_1
+  L_3:
+    ifeq L_4
+    ldc 3
+    goto L_5
+  L_4:
+    ldc 4
+  L_5:
+    istore 7
+    ldc 10
+    istore 8
+  L_6:
+    iload 7
+    iload 8
+    if_icmpgt L_7
+    iconst_0
+    goto L_8
+  L_7:
+    iconst_1
+  L_8:
+    ifeq L_9
+    iload 7
+    iload 8
+    isub
+    istore 7
+    goto L_6
+  L_9:
+    ldc 0
+    istore 9
+    ldc 8
+    istore 10
+  L_10:
+    iload 9
+    ldc 5
+    if_icmple L_11
+    iconst_0
+    goto L_12
+  L_11:
+    iconst_1
+  L_12:
+    iload 1
+    ldc 0
+    if_icmpne L_13
+    iconst_0
+    goto L_14
+  L_13:
+    iconst_1
+  L_14:
+    iand
+    ifeq L_21
+  L_15:
+    iload 6
+    ifeq L_20
+    iload 7
+    ldc 7
+    iload 8
+    iadd
+    if_icmpgt L_16
+    iconst_0
+    goto L_17
+  L_16:
+    iconst_1
+  L_17:
+    ifeq L_18
+    iload 0
+    iload 8
+    ldc 2
+    ldc 1
+    isub
+    imul
+    iadd
+    ldc 0
+    iadd
+    istore 7
+    ldc "98	ура"
+    astore 11
+    goto L_19
+  L_18:
+    iload 7
+    ldc 1
+    iadd
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#void print(java.lang.String)
+    iconst_1
+    istore 6
+  L_19:
+    goto L_15
+  L_20:
+    iload 9
+    iconst_1
+    iadd
+    istore 8
+    ldc 5
+    invokestatic CompilerDemo.Runtime#java.lang.String convert(int)
+    invokestatic CompilerDemo.Runtime#void print(java.lang.String)
+    goto L_10
+  L_21:
+    iload 7
+    ireturn
+  }
+  public static void main()
+  {
+    ldc 10
+    invokestatic test2#int main2(int)
+    istore 0
+    return
+  }
+  
+  public static void main(java.lang.String[])
+  {
+    invokestatic test2#void main()
+    return
+  }
+}

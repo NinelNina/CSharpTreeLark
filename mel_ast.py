@@ -48,6 +48,16 @@ class AstNode(ABC):
     def msil_gen(self, generator) -> None:
         generator.msil_gen(self)
 
+    """Чтобы среда не "ругалась" в модуле jbc
+    """
+    def jbc_gen(self, generator) -> None:
+        generator.jbc_gen(self)
+
+    """Чтобы среда не "ругалась" в модуле llvm
+    """
+    def llvm_gen(self, generator) -> None:
+        generator.llvm_gen(self)
+
     @property
     def tree(self) -> [str, ...]:
         r = [self.to_str_full()]
